@@ -49,6 +49,7 @@ Webpack loader for vanillaJS components
     ],
   },
   query: {
+    extension: '.pirate',
     script: {
       tagName: 'script',
       optional: true,
