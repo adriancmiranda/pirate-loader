@@ -40,7 +40,7 @@ module.exports.test = (options, assert) => {
 			jsdom.env({
 				src: [response.content],
 				html: '<!doctype html><html><head></head><body></body></html>',
-				done: (err, window) => {
+				done(err, window) {
 					if (err) {
 						reject([err[0].data.error]);
 					}
