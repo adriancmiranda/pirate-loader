@@ -34,7 +34,7 @@
   "scripts": {
     "upgrade": "ncu -a --loglevel verbose --packageFile package.json && npm i",
     "dev": "run-p watch:*",
-    "test": "ava test/*.spec.js",
+    "test": "ava test/**/*.spec.js",
     "watch:test": "npm test -- --watch",
     "lint": "xo index.js tools.js templates.js lib/**/*.js",
     "travis:test": "npm test",
