@@ -59,6 +59,9 @@
   query: {
     template: {
       extensionName: 'pirate',
+      accept: 'accept',
+      decline: 'decline',
+      dispose: 'dispose',
     },
     script: {
       tagName: 'script',
