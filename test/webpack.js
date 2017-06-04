@@ -23,13 +23,13 @@ module.exports = (options) => {
 		const outputFilename = path.join(config.output.path, config.output.filename);
 		compiler.outputFileSystem = mfs;
 		compiler.run((err, stats) => {
-			if (err || stats.compilation.errors.length) {
-				reject(err ? [err] : stats.compilation.errors);
+			const warnings = stats.compilation.warnings;
+			const errors = stats.compilation.errors;
+			if (err || errors.length) {
+				reject(err ? [err] : errors);
+			} else {
+				resolve({ output: mfs.readFileSync(outputFilename).toString(), warnings });
 			}
-			resolve({
-				content: mfs.readFileSync(outputFilename).toString(),
-				warnings: stats.compilation.warnings,
-			});
 		});
 	})
 };
@@ -59,6 +59,7 @@ module.exports.call = (options) => {
 	delete testConfig.$internal;
 	return new Promise((resolve, reject) => {
 		try {
+			const warnings = [];
 			const context = deepExtend({
 				target: 'web',
 				minimize: true,
@@ -73,7 +74,7 @@ module.exports.call = (options) => {
 			}, testConfig);
 			const content = fs.readFileSync(context.resourcePath, 'utf8');
 			const output = pirateLoader.call(context, Buffer.from(content));
-			resolve({ content: output, warnings: [] });
+			resolve({ output, warnings });
 		} catch (err) {
 			reject([err]);
 		}
