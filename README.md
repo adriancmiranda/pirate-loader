@@ -64,19 +64,19 @@
       dispose: 'dispose',
     },
     script: {
+      defaultLanguage: 'commonjs',
       tagName: 'script',
       optional: true,
-      lang: 'commonjs',
     },
     style: {
+      defaultLanguage: 'scss',
       tagName: 'styles',
       optional: true,
-      lang: 'scss',
     },
     view: {
+      defaultLanguage: 'html',
       tagName: 'template',
       optional: true,
-      lang: 'html',
     },
   },
 }
