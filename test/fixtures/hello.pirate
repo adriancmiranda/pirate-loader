@@ -1,0 +1,14 @@
+<view>
+  <section class="hello">Hello!</section>
+</view>
+
+<style>
+  .hello {
+    background-color: #222;
+    color: #f1f1f1;
+  }
+</style>
+
+<script>
+  return { hello: 'world!' };
+</script>
