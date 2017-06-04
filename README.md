@@ -8,14 +8,14 @@
 [![appveyor][appveyor]][appveyor-url]
 
 
-## Installation
+## 🏴 Installation
 
 ```diff
 - ☠ This loader is under construction. There's nothing for you here yet. ☠ -
 ```
 
 
-## Options
+## 🏴 Options
 
 ```javascript
 {
@@ -80,7 +80,7 @@
 ```
 
 
-## License
+## 🏴 License
 
 [MIT][license-url]
 
