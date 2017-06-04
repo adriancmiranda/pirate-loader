@@ -1,8 +1,11 @@
-const pirateLoader = require.resolve('../../pirate-loader');
+const path = require('path');
+const pirateLoader = require.resolve('../../');
+const resolve = (...rest) => path.join(__dirname, ...rest);
 
 module.exports = {
+	context: resolve('..'),
 	output: {
-		path: '/',
+		path: resolve('../bundle'),
 		filename: 'pirate-loader.spec.bundle.js',
 	},
 	module: {

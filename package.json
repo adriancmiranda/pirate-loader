@@ -54,11 +54,14 @@
     "conventional-commit-types": "^2.1.0",
     "cross-env": "^5.0.0",
     "husky": "^0.13.4",
+    "jsdom": "^11.0.0",
+    "memory-fs": "^0.4.1",
     "npm-check-updates": "^2.11.3",
     "npm-run-all": "^4.0.2",
     "nyc": "^11.0.2",
     "standard-version": "^4.0.0",
     "validate-commit-msg": "^2.12.1",
+    "webpack": "^2.6.1",
     "xo": "^0.18.2"
   },
   "engines": {
