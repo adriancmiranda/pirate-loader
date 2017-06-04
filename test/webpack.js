@@ -5,19 +5,21 @@ const MemoryFS = require('memory-fs');
 const webpack = require('webpack');
 const webpackConfig = require('./fixtures/webpack.config');
 const jsdom = require('jsdom/lib/old-api');
+const deepExtend = require('deep-extend');
 const pirateLoader = require('../');
 
 const mfs = new MemoryFS();
 
 module.exports = (options) => {
 	const testConfig = Object(options);
-	const pirateLoader = testConfig.pirateLoader;
+	const pirateConfig = testConfig.pirateLoader;
 	delete testConfig.pirateLoader;
+	delete testConfig.$internal;
 	return new Promise((resolve, reject) => {
 		const config = Object.assign({}, webpackConfig, testConfig);
-		const loaderOptions = new webpack.LoaderOptionsPlugin({ pirateLoader });
+		const loaderOptions = new webpack.LoaderOptionsPlugin({ pirateLoader: pirateConfig  });
 		const plugins = (config.plugins || []).concat(loaderOptions);
-		const compiler = webpack(Object.assign(pirateLoader ? { plugins } : {}, config));
+		const compiler = webpack(Object.assign(pirateConfig ? { plugins } : {}, config));
 		const outputFilename = path.join(config.output.path, config.output.filename);
 		compiler.outputFileSystem = mfs;
 		compiler.run((err, stats) => {
@@ -49,15 +51,25 @@ module.exports.test = (options, assert) => {
 	});
 };
 
-module.exports.call = (resourcePath, loaderOptions) => {
-	const config = Object.assign({}, loaderOptions);
-	const context = {
-		resourcePath: require.resolve(resourcePath),
+module.exports.call = (options) => {
+	const testConfig = Object(options);
+	const pirateConfig = testConfig.pirateLoader;
+	const internalConfig = testConfig.$internal;
+	delete testConfig.pirateLoader;
+	delete testConfig.$internal;
+	const context = deepExtend({
+		target: 'node',
+		minimize: true,
 		options: {
 			context: process.cwd(),
-			pirateLoader: config,
 		},
-	};
+	}, internalConfig, {
+		resourcePath: require.resolve(testConfig.entry),
+		options: {
+			pirateLoader: pirateConfig,
+		},
+	}, testConfig);
+	console.log(context);
 	const content = fs.readFileSync(context.resourcePath, 'utf8');
 	return pirateLoader.call(context, Buffer.from(content));
 };

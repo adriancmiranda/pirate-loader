@@ -53,6 +53,7 @@
     "ava-spec": "^1.1.0",
     "conventional-commit-types": "^2.1.0",
     "cross-env": "^5.0.0",
+    "deep-extend": "^0.5.0",
     "husky": "^0.13.4",
     "jsdom": "^11.0.0",
     "memory-fs": "^0.4.1",
