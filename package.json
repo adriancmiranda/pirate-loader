@@ -44,7 +44,6 @@
     "release": "npm run build && standard-version"
   },
   "dependencies": {
-    "is": "3.2.1",
     "loader-utils": "1.1.0",
     "resolve": "1.3.3"
   },
