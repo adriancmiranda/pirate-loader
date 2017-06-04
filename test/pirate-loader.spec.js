@@ -1,7 +1,7 @@
 import path from 'path';
 import test from 'ava-spec';
-import pirateLoader from '../';
+import webpack from './webpack';
 
 test('pirate-loader', t => {
-	t.is(toString.call(pirateLoader), '[object Function]');
+	t.is(toString.call(webpack), '[object Function]');
 });
