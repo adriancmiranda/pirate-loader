@@ -57,19 +57,25 @@ module.exports.call = (options) => {
 	const internalConfig = testConfig.$internal;
 	delete testConfig.pirateLoader;
 	delete testConfig.$internal;
-	const context = deepExtend({
-		target: 'node',
-		minimize: true,
-		options: {
-			context: process.cwd(),
-		},
-	}, internalConfig, {
-		resourcePath: require.resolve(testConfig.entry),
-		options: {
-			pirateLoader: pirateConfig,
-		},
-	}, testConfig);
-	console.log(context);
-	const content = fs.readFileSync(context.resourcePath, 'utf8');
-	return pirateLoader.call(context, Buffer.from(content));
+	return new Promise((resolve, reject) => {
+		try {
+			const context = deepExtend({
+				target: 'web',
+				minimize: true,
+				options: {
+					context: process.cwd(),
+				},
+			}, internalConfig, {
+				resourcePath: require.resolve(testConfig.entry),
+				options: {
+					pirateLoader: pirateConfig,
+				},
+			}, testConfig);
+			const content = fs.readFileSync(context.resourcePath, 'utf8');
+			const output = pirateLoader.call(context, Buffer.from(content));
+			resolve({ content: output, warnings: [] });
+		} catch (err) {
+			reject([err]);
+		}
+	});
 };
