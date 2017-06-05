@@ -57,8 +57,9 @@ module.exports.test = (options, assert) => {
 				done(err, window) {
 					if (err) {
 						reject([err[0].data.error]);
+					} else {
+						resolve(deepExtend({}, response, { window }));
 					}
-					resolve(deepExtend({}, response, { window }));
 				},
 			});
 		});
