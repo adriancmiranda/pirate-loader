@@ -5,7 +5,7 @@ const MemoryFS = require('memory-fs');
 const webpack = require('webpack');
 const jsdom = require('jsdom/lib/old-api');
 const deepExtend = require('deep-extend');
-const pirateLoader = require('../');
+const pirateLoader = require('..');
 
 const mfs = new MemoryFS();
 
@@ -18,7 +18,7 @@ module.exports = (options) => {
 		const config = deepExtend({}, module.exports.config, testConfig);
 		const loaderOptions = new webpack.LoaderOptionsPlugin({ pirateLoader: pirateConfig  });
 		const plugins = (config.plugins || []).concat(loaderOptions);
-		console.log(deepExtend(pirateConfig ? { plugins } : {}, config));
+		console.log(deepExtend(pirateConfig ? { plugins } : {}, config).module.rules);
 		const compiler = webpack(deepExtend(pirateConfig ? { plugins } : {}, config));
 		const outputFilename = path.posix.join(compiler.options.output.path, compiler.options.output.filename);
 		compiler.outputFileSystem = mfs;
@@ -43,7 +43,7 @@ module.exports.config = {
 	module: {
 		rules: [{
 			test: /\.pirate$/,
-			loader: pirateLoader,
+			loader: require.resolve('..'),
 		}],
 	},
 };
