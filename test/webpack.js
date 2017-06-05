@@ -34,7 +34,7 @@ module.exports = (options) => {
 };
 
 module.exports.config = {
-	context: path.join(__dirname, 'fixtures'),
+	context: path.join(__dirname, '.'),
 	output: {
 		path: '/',
 		filename: 'fixtures.bundle.js',
