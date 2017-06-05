@@ -16,10 +16,10 @@ module.exports = (options) => {
 	delete testConfig.pirateLoader;
 	delete testConfig.$internal;
 	return new Promise((resolve, reject) => {
-		const config = Object.assign({}, webpackConfig, testConfig);
+		const config = deepExtend({}, webpackConfig, testConfig);
 		const loaderOptions = new webpack.LoaderOptionsPlugin({ pirateLoader: pirateConfig  });
 		const plugins = (config.plugins || []).concat(loaderOptions);
-		const compiler = webpack(Object.assign(pirateConfig ? { plugins } : {}, config));
+		const compiler = webpack(deepExtend(pirateConfig ? { plugins } : {}, config));
 		const outputFilename = path.join(config.output.path, config.output.filename);
 		compiler.outputFileSystem = mfs;
 		compiler.run((err, stats) => {
@@ -44,7 +44,7 @@ module.exports.test = (options, assert) => {
 					if (err) {
 						reject([err[0].data.error]);
 					}
-					resolve(Object.assign({}, response, { window }));
+					resolve(deepExtend({}, response, { window }));
 				},
 			});
 		});
