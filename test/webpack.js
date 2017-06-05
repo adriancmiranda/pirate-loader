@@ -3,7 +3,6 @@ const querystring = require('querystring');
 const fs = require('fs');
 const MemoryFS = require('memory-fs');
 const webpack = require('webpack');
-const webpackConfig = require('./fixtures/webpack.config');
 const jsdom = require('jsdom/lib/old-api');
 const deepExtend = require('deep-extend');
 const pirateLoader = require('../');
@@ -16,11 +15,12 @@ module.exports = (options) => {
 	delete testConfig.pirateLoader;
 	delete testConfig.$internal;
 	return new Promise((resolve, reject) => {
-		const config = deepExtend({}, webpackConfig, testConfig);
+		const config = deepExtend({}, module.exports.config, testConfig);
 		const loaderOptions = new webpack.LoaderOptionsPlugin({ pirateLoader: pirateConfig  });
 		const plugins = (config.plugins || []).concat(loaderOptions);
+		console.log(deepExtend(pirateConfig ? { plugins } : {}, config));
 		const compiler = webpack(deepExtend(pirateConfig ? { plugins } : {}, config));
-		const outputFilename = path.join(config.output.path, config.output.filename);
+		const outputFilename = path.posix.join(compiler.options.output.path, compiler.options.output.filename);
 		compiler.outputFileSystem = mfs;
 		compiler.run((err, stats) => {
 			const warnings = stats.compilation.warnings;
@@ -31,7 +31,21 @@ module.exports = (options) => {
 				resolve({ output: mfs.readFileSync(outputFilename).toString(), warnings });
 			}
 		});
-	})
+	});
+};
+
+module.exports.config = {
+	context: path.join(__dirname, 'fixtures'),
+	output: {
+		path: '/',
+		filename: 'fixtures.bundle.js',
+	},
+	module: {
+		rules: [{
+			test: /\.pirate$/,
+			loader: pirateLoader,
+		}],
+	},
 };
 
 module.exports.test = (options, assert) => {
