@@ -19,10 +19,9 @@
 
 ```javascript
 {
-  loader: 'pirate-loader',
+  loader: 'pirate-loader?extensionName=pirate',
   test: /\.pirate$/,
   options: {
-    extensionName: 'pirate',
     style: {
       optional: true,
       defaultLanguage: 'scss',

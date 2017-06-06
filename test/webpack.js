@@ -42,9 +42,8 @@ module.exports.config = {
 	module: {
 		rules: [{
 			test: /\.pirate$/,
-			loader: require.resolve('..'),
+			loader: `require.resolve('..')?extensionName=pirate`,
 			options: {
-				extensionName: 'pirate',
 				style: {
 					optional: true,
 					defaultLanguage: 'css',
