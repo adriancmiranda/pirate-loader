@@ -39,6 +39,7 @@ Session.vim
 # dotfiles
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .*
+!.github
 !.editorconfig
 !.gitattributes
 !.gitignore
