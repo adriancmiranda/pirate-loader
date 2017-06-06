@@ -19,8 +19,8 @@
 
 ```javascript
 {
-  loader: 'pirate-loader?extensionName=pirate',
-  test: /\.pirate$/,
+  loader: 'pirate-loader?extensionName=component',
+  test: /\.component$/,
   options: {
     style: {
       optional: true,
