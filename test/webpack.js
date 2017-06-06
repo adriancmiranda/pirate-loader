@@ -51,7 +51,7 @@ module.exports.test = (options, assert) => {
 	return module.exports(options).then((response) => {
 		return new Promise((resolve, reject) => {
 			try {
-				const $ = cheerio.load('<!doctype html><html><head></head><body></body></html>');
+				const $ = cheerio.load(`<!doctype html><html><head></head><body></body></html>`);
 				resolve({ output: $('body').html(response.content), content: response.content });
 			} catch(err) {
 				reject([err]);
