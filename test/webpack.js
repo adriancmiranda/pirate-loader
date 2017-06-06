@@ -42,7 +42,7 @@ module.exports.config = {
 	module: {
 		rules: [{
 			test: /\.pirate$/,
-			loader: `require.resolve('..')?extensionName=pirate`,
+			loader: `${require.resolve('..')}?extensionName=pirate`,
 			options: {
 				style: {
 					optional: true,
