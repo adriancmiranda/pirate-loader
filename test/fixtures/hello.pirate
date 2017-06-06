@@ -11,12 +11,15 @@
 
 <script>
   export default {
-    hello: 'world!',
+    name: 'hello',
     init() {
       console.log('init');
     },
     dispose() {
       console.log('dispose');
+    },
+    toString() {
+      return '[Hello World!]';
     },
   };
 </script>
