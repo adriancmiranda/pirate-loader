@@ -43,6 +43,27 @@ module.exports.config = {
 		rules: [{
 			test: /\.pirate$/,
 			loader: require.resolve('..'),
+			options: {
+				extensionName: 'pirate',
+				style: {
+					optional: true,
+					defaultLanguage: 'css',
+					tagName: 'styles',
+				},
+				script: {
+					optional: false,
+					defaultLanguage: 'javascript',
+					tagName: 'script',
+					acceptMethodName: 'init',
+					declineMethodName: 'decline',
+					disposeMethodName: 'dispose',
+				},
+				view: {
+					optional: true,
+					defaultLanguage: 'html',
+					tagName: 'template',
+				},
+			},
 		}],
 	},
 };

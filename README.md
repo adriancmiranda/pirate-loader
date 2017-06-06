@@ -22,61 +22,24 @@
   loader: 'pirate-loader',
   test: /\.pirate$/,
   options: {
-    scss: [
-      { loader: 'style-loader' },
-      { loader: 'css-loader' },
-      { loader: 'sass-loader' },
-    ],
-    sass: [
-      { loader: 'style-loader' },
-      { loader: 'css-loader' },
-      { loader: 'sass-loader' },
-    ],
-    stylus: [
-      { loader: 'style-loader' },
-      { loader: 'css-loader' },
-      { loader: 'stylus-loader' },
-    ],
-    styl: [
-      { loader: 'style-loader' },
-      { loader: 'css-loader' },
-      { loader: 'stylus-loader' }
-    ],
-    less: [
-      { loader: 'style-loader' },
-      { loader: 'css-loader' },
-      { loader: 'less-loader' },
-    ],
-    css: [
-      { loader: 'style-loader' },
-      { loader: 'css-loader' },
-    ],
-    postcss: [
-      { loader: 'style-loader' },
-      { loader: 'css-loader' },
-    ],
-  },
-  query: {
-    template: {
-      extensionName: 'pirate',
-      accept: 'accept',
-      decline: 'decline',
-      dispose: 'dispose',
-    },
-    script: {
-      defaultLanguage: 'commonjs',
-      tagName: 'script',
-      optional: true,
-    },
+    extensionName: 'pirate',
     style: {
+      optional: true,
       defaultLanguage: 'scss',
       tagName: 'styles',
-      optional: true,
+    },
+    script: {
+      optional: false,
+      defaultLanguage: 'javascript',
+      tagName: 'script',
+      acceptMethodName: 'init',
+      declineMethodName: 'decline',
+      disposeMethodName: 'dispose',
     },
     view: {
+      optional: true,
       defaultLanguage: 'html',
       tagName: 'template',
-      optional: true,
     },
   },
 }
