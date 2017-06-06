@@ -3,7 +3,7 @@ const querystring = require('querystring');
 const fs = require('fs');
 const MemoryFS = require('memory-fs');
 const webpack = require('webpack');
-const jsdom = require('jsdom/lib/old-api');
+const cheerio = require('cheerio');
 const deepExtend = require('deep-extend');
 const pirateLoader = require('..');
 
@@ -27,7 +27,7 @@ module.exports = (options) => {
 			if (err || errors.length) {
 				reject(err ? [err] : errors);
 			} else {
-				resolve({ output: mfs.readFileSync(outputFilename).toString(), warnings });
+				resolve({ content: mfs.readFileSync(outputFilename).toString(), warnings });
 			}
 		});
 	});
@@ -50,17 +50,12 @@ module.exports.config = {
 module.exports.test = (options, assert) => {
 	return module.exports(options).then((response) => {
 		return new Promise((resolve, reject) => {
-			jsdom.env({
-				src: [response.content],
-				html: '<!doctype html><html><head></head><body></body></html>',
-				done(err, window) {
-					if (err) {
-						reject([err[0].data.error]);
-					} else {
-						resolve(deepExtend({}, response, { window }));
-					}
-				},
-			});
+			try {
+				const $ = cheerio.load('<!doctype html><html><head></head><body></body></html>');
+				resolve({ output: $('body').html(response.content), content: response.content });
+			} catch(err) {
+				reject([err]);
+			}
 		});
 	});
 };
@@ -77,6 +72,9 @@ module.exports.call = (options) => {
 			const context = deepExtend({
 				target: 'web',
 				minimize: true,
+				loaders: [],
+				loaderIndex: 0,
+				resource: undefined,
 				options: {
 					context: process.cwd(),
 				},
