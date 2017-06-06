@@ -10,5 +10,13 @@
 </style>
 
 <script>
-  return { hello: 'world!' };
+  export default {
+    hello: 'world!',
+    init() {
+      console.log('init');
+    },
+    dispose() {
+      console.log('dispose');
+    },
+  };
 </script>

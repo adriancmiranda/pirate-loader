@@ -75,6 +75,7 @@ module.exports.call = (options) => {
 				loaders: [],
 				loaderIndex: 0,
 				resource: undefined,
+				sourceMap: true,
 				options: {
 					context: process.cwd(),
 				},
