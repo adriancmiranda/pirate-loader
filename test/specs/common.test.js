@@ -61,9 +61,9 @@ test('lib/common.writeNameFromType', t => {
 
 test('lib/common.stringifyInstances', t => {
 	t.is(toString.call(common.stringifyInstances), '[object Function]');
-	t.is(common.stringifyInstances([Symbol, String]), 'Symbol|String');
-	t.is(common.stringifyInstances('Symbol|String'), 'Symbol|String');
-	t.is(common.stringifyInstances([1, 'Custom']), 'Number|Custom');
+	t.is(common.stringifyInstances([Symbol, String, Function, Object, Boolean]), 'Symbol|String|Function|Object|Boolean');
+	t.is(common.stringifyInstances('Symbol|String|Function|Object|Boolean'), 'Symbol|String|Function|Object|Boolean');
+	t.is(common.stringifyInstances([1, 'Custom', {}]), 'Number|Custom|Object');
 });
 
 test('lib/common.getInstanceNameOf', t => {
@@ -139,7 +139,7 @@ test('lib/common.is', t => {
 	t.is(common.is('Function|Array', []), true);
 	t.is(common.is('Function|Array', () => []), true);
 	t.is(common.is('String|Function', 'pirate'), true);
-	t.is(common.is([String, Function], 'pirate'), true);
+	t.is(common.is([String, Function, Object, Boolean], 'pirate'), true);
 	t.is(common.is([String.name, Function.name], 'pirate'), true);
 	t.is(common.is('String|Function', () => 'pirate'), true);
 	t.is(common.is([String, Function], () => 'pirate'), true);
@@ -171,7 +171,7 @@ test('lib/common.is.not', t => {
 	t.is(common.is.not('Function|Array', []), false);
 	t.is(common.is.not('Function|Array', () => []), false);
 	t.is(common.is.not('String|Function', 'pirate'), false);
-	t.is(common.is.not([String, Function], 'pirate'), false);
+	t.is(common.is.not([String, Function, Object, Boolean], 'pirate'), false);
 	t.is(common.is.not([String.name, Function.name], 'pirate'), false);
 	t.is(common.is.not('String|Function', () => 'pirate'), false);
 	t.is(common.is.not([String, Function], () => 'pirate'), false);
