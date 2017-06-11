@@ -30,32 +30,33 @@ test('lib/common.typeOf', t => {
 	t.is(common.typeOf(new Date()), 'Date');
 });
 
-test('lib/common.getNameFromType', t => {
-	t.is(toString.call(common.getNameFromType), '[object Function]');
-	t.is(common.getNameFromType(Symbol), 'Symbol');
-	t.is(common.getNameFromType(String), 'String');
-	t.is(common.getNameFromType(RegExp), 'RegExp');
-	t.is(common.getNameFromType(Number), 'Number');
-	t.is(common.getNameFromType(TypeError), 'TypeError');
-	t.is(common.getNameFromType(Error), 'Error');
-	t.is(common.getNameFromType(Object), 'Object');
-	t.is(common.getNameFromType(Array), 'Array');
-	t.is(common.getNameFromType(Boolean), 'Boolean');
-	t.is(common.getNameFromType(Buffer), 'Buffer');
-	t.is(common.getNameFromType(Date), 'Date');
-	t.is(common.getNameFromType(null), 'Null');
-	t.is(common.getNameFromType(undefined), 'Undefined');
-	t.is(common.getNameFromType(NaN), 'Number');
-	t.is(common.getNameFromType('ab|ba'), 'ab|ba');
-	t.is(common.getNameFromType(new Fixture('test')), 'test');
-	t.is(common.getNameFromType(Fixture), 'CommonFixture');
-	t.is(common.getNameFromType([1, 2]), 'Array');
-	t.is(common.getNameFromType(/^./g), 'RegExp');
-	t.is(common.getNameFromType(10000), 'Number');
-	t.is(common.getNameFromType({name: 1}), 1);
-	t.is(common.getNameFromType(false), 'Boolean');
-	t.is(common.getNameFromType(new Date()), 'Date');
-	t.is(common.getNameFromType(new Buffer('ab')), 'Uint8Array');
+test('lib/common.writeNameFromType', t => {
+	t.is(toString.call(common.writeNameFromType), '[object Function]');
+	t.is(common.writeNameFromType(Symbol), 'Symbol');
+	t.is(common.writeNameFromType(String), 'String');
+	t.is(common.writeNameFromType(RegExp), 'RegExp');
+	t.is(common.writeNameFromType(Number), 'Number');
+	t.is(common.writeNameFromType(TypeError), 'TypeError');
+	t.is(common.writeNameFromType(Error), 'Error');
+	t.is(common.writeNameFromType(Object), 'Object');
+	t.is(common.writeNameFromType(Array), 'Array');
+	t.is(common.writeNameFromType(Boolean), 'Boolean');
+	t.is(common.writeNameFromType(Buffer), 'Buffer');
+	t.is(common.writeNameFromType(Date), 'Date');
+	t.is(common.writeNameFromType(null), 'Null');
+	t.is(common.writeNameFromType(undefined), 'Undefined');
+	t.is(common.writeNameFromType(NaN), 'Number');
+	t.is(common.writeNameFromType('ab|ba', true), 'ab|ba');
+	t.is(common.writeNameFromType('ab|ba'), 'String');
+	t.is(common.writeNameFromType(new Fixture('test')), 'test');
+	t.is(common.writeNameFromType(Fixture), 'CommonFixture');
+	t.is(common.writeNameFromType([1, 2]), 'Array');
+	t.is(common.writeNameFromType(/^./g), 'RegExp');
+	t.is(common.writeNameFromType(10000), 'Number');
+	t.is(common.writeNameFromType({name: 1}), 1);
+	t.is(common.writeNameFromType(false), 'Boolean');
+	t.is(common.writeNameFromType(new Date()), 'Date');
+	t.is(common.writeNameFromType(new Buffer('ab')), 'Uint8Array');
 });
 
 test('lib/common.stringifyInstances', t => {
