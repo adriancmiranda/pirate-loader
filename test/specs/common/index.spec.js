@@ -2,6 +2,26 @@ import test from 'ava-spec';
 import Fixture from '../../fixtures/common.fixture';
 import common from '../../../lib/common';
 
+test('lib/common.extractInstanceName', t => {
+	t.is(toString.call(common.extractInstanceName), '[object Function]');
+});
+
+test('lib/common.getNameOf', t => {
+	t.is(toString.call(common.getNameOf), '[object Function]');
+});
+
+test('lib/common.stringifyInstances', t => {
+	t.is(toString.call(common.stringifyInstances), '[object Function]');
+});
+
+test('lib/common.getInstanceNameOf', t => {
+	t.is(toString.call(common.getInstanceNameOf), '[object Function]');
+});
+
+test('lib/common.getInstanceOf', t => {
+	t.is(toString.call(common.getInstanceOf), '[object Function]');
+});
+
 test('lib/common.is', t => {
 	t.is(toString.call(common.is), '[object Function]');
 	t.is(common.is('String|Function', 'pirate'), true);
