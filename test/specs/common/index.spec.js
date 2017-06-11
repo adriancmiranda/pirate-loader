@@ -2,24 +2,110 @@ import test from 'ava-spec';
 import Fixture from '../../fixtures/common.fixture';
 import common from '../../../lib/common';
 
-test('lib/common.extractInstanceName', t => {
-	t.is(toString.call(common.extractInstanceName), '[object Function]');
+test('lib/common.typeOf', t => {
+	t.is(toString.call(common.typeOf), '[object Function]');
+	t.is(common.typeOf('ab'), 'String');
+	t.is(common.typeOf(/^./g), 'RegExp');
+	t.is(common.typeOf(10000), 'Number');
+	t.is(common.typeOf({name: 1}), 'Object');
+	t.is(common.typeOf([1, 2]), 'Array');
+	t.is(common.typeOf(false), 'Boolean');
+	t.is(common.typeOf(null), 'Null');
+	t.is(common.typeOf(undefined), 'Undefined');
+	t.is(common.typeOf(Fixture), 'Function');
+	t.is(common.typeOf(new Fixture('test')), 'Object');
+	t.is(common.typeOf(new Buffer('ab')), 'Uint8Array');
+	t.is(common.typeOf(new Date()), 'Date');
 });
 
+test.todo('[lib/common.getNameOf]: Choose a better name for this function');
 test('lib/common.getNameOf', t => {
 	t.is(toString.call(common.getNameOf), '[object Function]');
+	t.is(common.getNameOf(Symbol), 'Symbol');
+	t.is(common.getNameOf(String), 'String');
+	t.is(common.getNameOf(RegExp), 'RegExp');
+	t.is(common.getNameOf(Number), 'Number');
+	t.is(common.getNameOf(TypeError), 'TypeError');
+	t.is(common.getNameOf(Error), 'Error');
+	t.is(common.getNameOf(Object), 'Object');
+	t.is(common.getNameOf(Array), 'Array');
+	t.is(common.getNameOf(Boolean), 'Boolean');
+	t.is(common.getNameOf(Buffer), 'Buffer');
+	t.is(common.getNameOf(Date), 'Date');
+	t.is(common.getNameOf(null), 'Null');
+	t.is(common.getNameOf(undefined), 'Undefined');
+	t.is(common.getNameOf(NaN), 'Number');
+	t.is(common.getNameOf('ab|ba'), 'ab|ba');
+	t.is(common.getNameOf(new Fixture('test')), 'test');
+	t.is(common.getNameOf(Fixture), 'CommonFixture');
+	t.is(common.getNameOf([1, 2]), 'Array');
+	t.is(common.getNameOf(/^./g), 'RegExp');
+	t.is(common.getNameOf(10000), 'Number');
+	t.is(common.getNameOf({name: 1}), 1);
+	t.is(common.getNameOf(false), 'Boolean');
+	t.is(common.getNameOf(new Date()), 'Date');
+	t.is(common.getNameOf(new Buffer('ab')), 'Uint8Array');
 });
 
 test('lib/common.stringifyInstances', t => {
 	t.is(toString.call(common.stringifyInstances), '[object Function]');
+	t.is(common.stringifyInstances([Symbol, String]), 'Symbol|String');
+	t.is(common.stringifyInstances('Symbol|String'), 'Symbol|String');
+	t.is(common.stringifyInstances([1, 'Custom']), 'Number|Custom');
 });
 
 test('lib/common.getInstanceNameOf', t => {
 	t.is(toString.call(common.getInstanceNameOf), '[object Function]');
+	t.is(common.getInstanceNameOf(Symbol), 'Symbol');
+	t.is(common.getInstanceNameOf(String), 'String');
+	t.is(common.getInstanceNameOf(RegExp), 'RegExp');
+	t.is(common.getInstanceNameOf(Number), 'Number');
+	t.is(common.getInstanceNameOf(TypeError), 'TypeError');
+	t.is(common.getInstanceNameOf(Error), 'Error');
+	t.is(common.getInstanceNameOf(Object), 'Object');
+	t.is(common.getInstanceNameOf(Array), 'Array');
+	t.is(common.getInstanceNameOf(Boolean), 'Boolean');
+	t.is(common.getInstanceNameOf(Buffer), 'Buffer');
+	t.is(common.getInstanceNameOf(Date), 'Date');
+	t.is(common.getInstanceNameOf(null), 'Null');
+	t.is(common.getInstanceNameOf(undefined), 'Undefined');
+	t.is(common.getInstanceNameOf(NaN), 'Number');
+	t.is(common.getInstanceNameOf('ab|ba'), 'String');
+	t.is(common.getInstanceNameOf(new Fixture('test')), 'CommonFixture');
+	t.is(common.getInstanceNameOf(Fixture), 'CommonFixture');
+	t.is(common.getInstanceNameOf([1, 2]), 'Array');
+	t.is(common.getInstanceNameOf(/^./g), 'RegExp');
+	t.is(common.getInstanceNameOf(10000), 'Number');
+	t.is(common.getInstanceNameOf({name: 1}), 'Object');
+	t.is(common.getInstanceNameOf(false), 'Boolean');
+	t.is(common.getInstanceNameOf(new Date()), 'Date');
+	t.is(common.getInstanceNameOf(new Buffer('ab')), 'Uint8Array');
 });
 
 test('lib/common.getInstanceOf', t => {
 	t.is(toString.call(common.getInstanceOf), '[object Function]');
+	t.is(common.getInstanceOf(Symbol('foo')), Symbol);
+	t.is(common.getInstanceOf(new String()), String);
+	t.is(common.getInstanceOf(new RegExp('^foo')), RegExp);
+	t.is(common.getInstanceOf(/^./g), RegExp);
+	t.is(common.getInstanceOf(new TypeError('foo')), TypeError);
+	t.is(common.getInstanceOf(new Error('foo')), Error);
+	t.is(common.getInstanceOf(new Object()), Object);
+	t.is(common.getInstanceOf({name: 1}), Object);
+	t.is(common.getInstanceOf(new Array()), Array);
+	t.is(common.getInstanceOf([1, 2]), Array);
+	t.is(common.getInstanceOf(new Boolean()), Boolean);
+	t.is(common.getInstanceOf(new Buffer('1234')), Buffer);
+	t.is(common.getInstanceOf(new Date()), Date);
+	t.is(common.getInstanceOf(null), null);
+	t.is(common.getInstanceOf(undefined), undefined);
+	t.is(common.getInstanceOf(NaN), Number);
+	t.is(common.getInstanceOf(10000), Number);
+	t.is(common.getInstanceOf('ab|ba'), String);
+	t.is(common.getInstanceOf(new Fixture('test')), Fixture);
+	t.is(common.getInstanceOf(Fixture), Function);
+	t.is(common.getInstanceOf(false), Boolean);
+	t.is(common.getInstanceOf(new Uint8Array()), Uint8Array);
 });
 
 test('lib/common.is', t => {
