@@ -18,7 +18,6 @@ test('lib/common.typeOf', t => {
 	t.is(common.typeOf(new Date()), 'Date');
 });
 
-test.todo('[lib/common.getNameFromType]: Choose a better name for this function');
 test('lib/common.getNameFromType', t => {
 	t.is(toString.call(common.getNameFromType), '[object Function]');
 	t.is(common.getNameFromType(Symbol), 'Symbol');
