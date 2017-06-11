@@ -1,6 +1,6 @@
 import test from 'ava-spec';
-import Fixture from '../../fixtures/common.fixture';
-import common from '../../../lib/common';
+import Fixture from '../fixtures/common.fixture';
+import common from '../../lib/common';
 
 test('lib/common.typeOf', t => {
 	t.is(toString.call(common.typeOf), '[object Function]');
@@ -109,6 +109,9 @@ test('lib/common.getInstanceOf', t => {
 
 test('lib/common.is', t => {
 	t.is(toString.call(common.is), '[object Function]');
+	// t.is(common.is('Function|Array', String), true);
+	// t.is(common.is('Function|Array', []), true);
+	// t.is(common.is('Function|Array', () => []), true);
 	t.is(common.is('String|Function', 'pirate'), true);
 	t.is(common.is([String, Function], 'pirate'), true);
 	t.is(common.is('String|Function', () => 'pirate'), true);
@@ -131,6 +134,9 @@ test('lib/common.is', t => {
 
 test('lib/common.is.not', t => {
 	t.is(toString.call(common.is.not), '[object Function]');
+	// t.is(common.is.not('Function|Array', String), true);
+	// t.is(common.is.not('Function|Array', []), true);
+	// t.is(common.is.not('Function|Array', () => []), true);
 	t.is(common.is.not('String|Function', 'pirate'), false);
 	t.is(common.is.not([String, Function], 'pirate'), false);
 	t.is(common.is.not('String|Function', () => 'pirate'), false);
