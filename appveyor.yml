@@ -1,18 +1,20 @@
-# appveyor file
+# ci: appveyor file
 # http://www.appveyor.com/docs/appveyor-yml
 
 branches:
   only:
     - master
+    - /^greenkeeper-/
 
 init:
   - git config --global core.autocrlf input
 
 clone_depth: 50
 
-# what combinations to test
 environment:
   matrix:
+    - nodejs_version: stable
+      job_part: test
     - nodejs_version: 7
       job_part: test
     - nodejs_version: 6
@@ -20,8 +22,9 @@ environment:
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
-  - npm install ava-cli -g
-  - npm install yarn -g
+  - npm prune
+  - npm i -g yarn
+  - yarn i -g npm@latest
   - yarn install
 
 build: off
@@ -33,4 +36,7 @@ test_script:
   - node --version
   - npm --version
   - yarn --version
-  - cmd: npm run appveyor:%job_part% -- --verbose
+  - cmd: yarn run %job_part%:appveyor
+
+after_test:
+  - yarn run report-coverage

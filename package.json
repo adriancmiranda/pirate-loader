@@ -33,12 +33,13 @@
   },
   "scripts": {
     "upgrade": "ncu -a --loglevel verbose --packageFile package.json && npm i",
+    "report-coverage": "exit 0",
     "dev": "run-p watch:*",
-    "test": "ava --no-cache test/**/*.test.js",
-    "watch:test": "npm test -- --watch",
     "lint": "xo index.js tools.js templates.js lib/**/*.js",
-    "travis:test": "npm test",
-    "appveyor:test": "node --max_old_space_size=4096 \"node_modules\\ava-cli\\cli\" \"test/*.spec.js\"",
+    "test": "ava test/**/*.test.js --no-cache",
+    "test:travis": "npm test",
+    "test:appveyor": "node --max_old_space_size=4096 \"node_modules\\ava-cli\\cli\" \"test/**/*.test.js\" --no-cache --verbose",
+    "watch:test": "npm test -- --watch",
     "precommit": "run-s lint test",
     "commitmsg": "validate-commit-msg",
     "release": "npm run build && standard-version"
