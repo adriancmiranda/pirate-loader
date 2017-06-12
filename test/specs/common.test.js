@@ -63,8 +63,8 @@ test('lib/common.stringifyInstances', t => {
 	t.is(toString.call(common.stringifyInstances), '[object Function]');
 	t.is(common.stringifyInstances([Symbol, String, Function, Object, Boolean]), 'Symbol|String|Function|Object|Boolean');
 	t.is(common.stringifyInstances('Symbol|String|Function|Object|Boolean', true), 'Symbol|String|Function|Object|Boolean');
-	t.is(common.stringifyInstances([1, 'Custom', {}]), 'Number|Custom|Object'); // <- @array?
-	t.is(common.stringifyInstances([]), 'Array'); // <- @array?
+	t.is(common.stringifyInstances([1, 'Custom', {}]), 'Number|Custom|Object'); // <- should it be an array?
+	t.is(common.stringifyInstances([]), 'Array');
 	t.is(common.stringifyInstances(1), 'Number');
 	t.is(common.stringifyInstances('Custom', true), 'Custom');
 	t.is(common.stringifyInstances({}), 'Object');
