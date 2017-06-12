@@ -7,6 +7,7 @@ const cheerio = require('cheerio');
 const deepExtend = require('deep-extend');
 const pirateLoader = require('..');
 
+const pirateLoaderModule = require.resolve('..');
 const mfs = new MemoryFS();
 
 module.exports = (options) => {
@@ -42,7 +43,7 @@ module.exports.config = {
 	module: {
 		rules: [{
 			test: /\.pirate$/,
-			loader: `${require.resolve('..')}?extensionName=pirate`,
+			loader: `${pirateLoaderModule}?extensionName=pirate`,
 			options: {
 				style: {
 					optional: true,
@@ -77,7 +78,7 @@ module.exports.test = (options, assert) => {
 				reject([err]);
 			}
 		});
-	});
+	}).catch(console.error.bind(console, '[WebpackTestError]:'));
 };
 
 module.exports.call = (options) => {
