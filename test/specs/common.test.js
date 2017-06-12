@@ -53,7 +53,7 @@ test('lib/common.writeNameFromType', t => {
 	t.is(common.writeNameFromType([1, 2]), 'Array');
 	t.is(common.writeNameFromType(/^./g), 'RegExp');
 	t.is(common.writeNameFromType(10000), 'Number');
-	t.is(common.writeNameFromType({name: 1}), 1);
+	t.is(common.writeNameFromType({name: 1}), 'Object');
 	t.is(common.writeNameFromType(false), 'Boolean');
 	t.is(common.writeNameFromType(new Date()), 'Date');
 	t.is(common.writeNameFromType(new Buffer('ab')), 'Uint8Array');
@@ -62,13 +62,13 @@ test('lib/common.writeNameFromType', t => {
 test('lib/common.stringifyInstances', t => {
 	t.is(toString.call(common.stringifyInstances), '[object Function]');
 	t.is(common.stringifyInstances([Symbol, String, Function, Object, Boolean]), 'Symbol|String|Function|Object|Boolean');
-	t.is(common.stringifyInstances('Symbol|String|Function|Object|Boolean'), 'Symbol|String|Function|Object|Boolean');
+	t.is(common.stringifyInstances('Symbol|String|Function|Object|Boolean', true), 'Symbol|String|Function|Object|Boolean');
 	t.is(common.stringifyInstances([1, 'Custom', {}]), 'Number|Custom|Object'); // <- @array?
-	// t.is(common.stringifyInstances([]), 'Array'); // <- @array?
+	t.is(common.stringifyInstances([]), 'Array'); // <- @array?
 	t.is(common.stringifyInstances(1), 'Number');
-	t.is(common.stringifyInstances('Custom'), 'Custom');
+	t.is(common.stringifyInstances('Custom', true), 'Custom');
 	t.is(common.stringifyInstances({}), 'Object');
-	// t.is(common.stringifyInstances({name: 1}), 'Object');
+	t.is(common.stringifyInstances({name: 1}), 'Object');
 	t.is(common.stringifyInstances(/^./g), 'RegExp');
 	t.is(common.stringifyInstances(false), 'Boolean');
 	t.is(common.stringifyInstances(new Date()), 'Date');
