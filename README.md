@@ -23,12 +23,12 @@
   test: /\.component$/,
   options: {
     style: {
-      optional: true,
+      required: true,
       defaultLanguage: 'scss',
       tagName: 'styles',
     },
     script: {
-      optional: false,
+      required: false,
       defaultLanguage: 'javascript',
       tagName: 'script',
       acceptMethodName: 'init',
@@ -36,7 +36,7 @@
       disposeMethodName: 'dispose',
     },
     view: {
-      optional: true,
+      required: true,
       defaultLanguage: 'html',
       tagName: 'template',
     },
