@@ -23,9 +23,8 @@ environment:
 install:
   - ps: Install-Product node $env:nodejs_version x64
   - npm prune
-  - npm i -g yarn
-  - yarn install -g npm@latest
-  - yarn install
+  - npm i -g npm@latest
+  - npm i
 
 build: off
 
@@ -35,8 +34,7 @@ matrix:
 test_script:
   - node --version
   - npm --version
-  - yarn --version
-  - cmd: yarn run %job_part%:appveyor
+  - cmd: npm run %job_part%:appveyor
 
 after_test:
-  - yarn run report-coverage
+  - npm run report-coverage

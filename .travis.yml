@@ -32,8 +32,7 @@ before_install:
 
 before_script:
   - npm prune
-  - npm install yarn -g
-  - yarn install
+  - npm i
 
 script:
   - npm run $JOB_PART:travis
