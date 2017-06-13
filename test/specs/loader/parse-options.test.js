@@ -2,7 +2,7 @@ import test from 'ava-spec';
 import parseOptions from '../../../lib/loader/parse-options';
 
 function sprop(schema, value) {
-	return parseOptions({ $foo: schema }, { foo: value });
+	return parseOptions({ $foo: schema }, { foo: value }).foo;
 }
 
 function throws(msgPrefix, t, schema, value, errorClass) {
