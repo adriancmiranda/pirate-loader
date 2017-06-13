@@ -62,6 +62,7 @@ test('lib/common.writeNameFromType', t => {
 test('lib/common.stringifyInstances', t => {
 	t.is(toString.call(common.stringifyInstances), '[object Function]');
 	t.is(common.stringifyInstances([Symbol, String, Function, Object, Boolean]), 'Symbol|String|Function|Object|Boolean');
+	t.is(common.stringifyInstances([Symbol, String, Function, Object, Boolean,]), 'Symbol|String|Function|Object|Boolean'); // should be 'Symbol|String|Function|Object|Boolean|Undefined'
 	t.is(common.stringifyInstances('Symbol|String|Function|Object|Boolean', true), 'Symbol|String|Function|Object|Boolean');
 	t.is(common.stringifyInstances([1, 'Custom', {}]), 'Number|Custom|Object'); // <- should it be an array?
 	t.is(common.stringifyInstances([]), 'Array');
