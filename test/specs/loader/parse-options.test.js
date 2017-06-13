@@ -24,36 +24,48 @@ function invalidProp(t, schema, value, err) {
 	throws('[INVALID_TYPE]:', t, schema, value, err);
 }
 
-test('lib/loader/parse-options exists', t => {
-	t.is(toString.call(parseOptions), '[object Function]');
-});
+// test('lib/loader/parse-options exists', t => {
+// 	t.is(toString.call(parseOptions), '[object Function]');
+// });
 
-test('lib/loader/parse-options // simple', t => {
-	t.is(sprop([Function, String], 'hello'), 'hello');
-	t.is(sprop(String, 'hello'), 'hello');
-});
+// test('lib/loader/parse-options // simple', t => {
+// 	t.is(sprop([Function, String], 'hello'), 'hello');
+// 	t.is(sprop(String, 'hello'), 'hello');
+// });
 
-test('lib/loader/parse-options // simple conflicts', t => {
-	conflictProp(t, [Function, String], undefined, TypeError);
-	conflictProp(t, Function, 'hello', TypeError);
-	conflictProp(t, String, undefined, TypeError);
-});
+// test('lib/loader/parse-options // simple conflicts', t => {
+// 	conflictProp(t, [Function, String], undefined, TypeError);
+// 	conflictProp(t, Function, 'hello', TypeError);
+// 	conflictProp(t, String, undefined, TypeError);
+// });
 
-test('lib/loader/parse-options // complex', t => {
-	t.is(sprop({
-		type: [Function, String],
-		required: true,
-		default: 'My default text',
-	}, 'hello'), 'hello');
-});
+// test('lib/loader/parse-options // complex', t => {
+// 	t.is(sprop({
+// 		type: [Function, String],
+// 		required: true,
+// 		default: 'My default text',
+// 	}, 'hello'), 'hello');
+// });
+
+// test('lib/loader/parse-options // complex conflicts', t => {
+// 	conflictProp(t, {
+// 		type: [Function, String],
+// 		required: true,
+// 		default: {
+// 			$name: String,
+// 			$limit: Number,
+// 		},
+// 	}, {a: 'hello'}, TypeError);
+// });
 
 test('lib/loader/parse-options // complex conflicts', t => {
-	conflictProp(t, {
-		type: [Function, String],
+	console.log('\n\ntest: \n\n', sprop({
+		type: [Function, String, Object],
 		required: true,
+		// default: undefined,
 		default: {
 			$name: String,
 			$limit: Number,
 		},
-	}, {a: 'hello'}, TypeError);
+	}, {a: 'hello'}), '\n\n---\n\n');
 });
