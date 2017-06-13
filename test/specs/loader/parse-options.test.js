@@ -12,16 +12,32 @@ function throws(msgPrefix, t, schema, value, errorClass) {
 	t.is(err.message.indexOf(msgPrefix), 0);
 }
 
-function conflictProp(t, schema, value, err) {
-	throws('[CONFLICT_TYPE]:', t, schema, value, err);
+function throwUnknownSchema(t, schema, value, err) {
+	throws('[UNKN0WN_SCHEM4]:', t, schema, value, err);
 }
 
-function unexpectedProp(t, schema, value, err) {
-	throws('[UNEXPECTED_TYPE]:', t, schema, value, err);
+function throwInvalidSchema(t, schema, value, err) {
+	throws('[INVALID_SCHEM4]:', t, schema, value, err);
 }
 
-function invalidProp(t, schema, value, err) {
+function throwRequiredProperty(t, schema, value, err) {
+	throws('[REQUIRED_PR0PERTY]:', t, schema, value, err);
+}
+
+function throwUnknownType(t, schema, value, err) {
+	throws('[UNKN0WN_TYPE]:', t, schema, value, err);
+}
+
+function throwInvalidType(t, schema, value, err) {
 	throws('[INVALID_TYPE]:', t, schema, value, err);
+}
+
+function throwConflictType(t, schema, value, err) {
+	throws('[CONFL1CT_TYPE]:', t, schema, value, err);
+}
+
+function throwUnexpectedType(t, schema, value, err) {
+	throws('[UNEXPECTED_TYPE]:', t, schema, value, err);
 }
 
 test('lib/loader/parse-options exists', t => {
@@ -42,11 +58,11 @@ test('lib/loader/parse-options // simple', t => {
 	t.is(sprop(String, 'hello'), 'hello');
 });
 
-// test('lib/loader/parse-options // simple conflicts', t => {
-// 	conflictProp(t, [Function, String], undefined, TypeError);
-// 	conflictProp(t, Function, 'hello', TypeError);
-// 	conflictProp(t, String, undefined, TypeError);
-// });
+test('lib/loader/parse-options // simple conflicts', t => {
+	throwUnexpectedType(t, [Function, String], undefined, TypeError);
+	throwUnexpectedType(t, Function, 'hello', TypeError);
+	throwUnexpectedType(t, String, undefined, TypeError);
+});
 
 test('lib/loader/parse-options // complex', t => {
 	t.is(sprop({
@@ -56,13 +72,13 @@ test('lib/loader/parse-options // complex', t => {
 	}, 'hello'), 'hello');
 });
 
-// test('lib/loader/parse-options // complex conflicts', t => {
-// 	conflictProp(t, {
-// 		type: [Function, String],
-// 		required: true,
-// 		default: {
-// 			$name: String,
-// 			$limit: Number,
-// 		},
-// 	}, {a: 'hello'}, TypeError);
-// });
+test('lib/loader/parse-options // complex conflicts', t => {
+	throwConflictType(t, {
+		type: [Function, String],
+		required: true,
+		default: {
+			$name: String,
+			$limit: Number,
+		},
+	}, {a: 'hello'}, TypeError);
+});
