@@ -45,11 +45,11 @@ test('lib/loader/parse-options exists', t => {
 });
 
 test('lib/loader/parse-options // simple', t => {
-	t.is(sprop(undefined, undefined), undefined);
-	t.is(sprop(null, null), null);
 	t.is(sprop([Function, String, undefined], undefined), undefined);
 	t.is(sprop([Function, String], 'hello'), 'hello');
 	t.is(sprop(String, 'hello'), 'hello');
+	t.is(sprop(undefined, undefined), undefined);
+	t.is(sprop(null, null), null);
 });
 
 test('lib/loader/parse-options // simple conflicts', t => {

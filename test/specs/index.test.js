@@ -9,7 +9,6 @@ test('pirate-loader', t => {
 	webpack.call({
 		entry: './fixtures/hello.pirate',
 		pirateLoader: {
-			extensionName: '',
 			style: {},
 			script: {},
 			view: {},

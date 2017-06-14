@@ -36,7 +36,7 @@
     "report-coverage": "exit 0",
     "dev": "run-p watch:*",
     "lint": "xo index.js tools.js templates.js lib/**/*.js",
-    "test": "ava **/*.test.js",
+    "test": "ava test/**/*.test.js",
     "test:travis": "npm test -- --no-cache --verbose",
     "test:appveyor": "node --max_old_space_size=4096 \"node_modules\\ava-cli\\cli\" \"test/**/*.test.js\" --no-cache --verbose",
     "watch:test": "npm test -- --watch",
