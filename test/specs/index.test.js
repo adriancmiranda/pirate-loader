@@ -8,6 +8,12 @@ test('pirate-loader', t => {
 	t.is(toString.call(webpack.config), '[object Object]');
 	webpack.call({
 		entry: './fixtures/hello.pirate',
+		pirateLoader: {
+			extensionName: '',
+			style: {},
+			script: {},
+			view: {},
+		},
 	}).then((response) => {
 		console.log('response:', response.output);
 	}).catch(console.error.bind(console, '[pirate-loader]:'));
