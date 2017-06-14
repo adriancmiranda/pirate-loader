@@ -54,11 +54,18 @@ test('lib/loader/parse-options exists', t => {
 });
 
 test('lib/loader/parse-options // simple', t => {
+	t.is(sprop(undefined, undefined), undefined);
+	t.is(sprop(null, null), null);
+	t.is(sprop([Function, String, undefined], undefined), undefined);
 	t.is(sprop([Function, String], 'hello'), 'hello');
 	t.is(sprop(String, 'hello'), 'hello');
 });
 
 test('lib/loader/parse-options // simple conflicts', t => {
+	throwUnexpectedType(t, undefined, null, TypeError);
+	throwUnexpectedType(t, null, undefined, TypeError);
+	throwUnexpectedType(t, String, undefined, TypeError);
+	throwUnexpectedType(t, String, null, TypeError);
 	throwUnexpectedType(t, [Function, String], undefined, TypeError);
 	throwUnexpectedType(t, Function, 'hello', TypeError);
 	throwUnexpectedType(t, String, undefined, TypeError);
@@ -80,5 +87,5 @@ test('lib/loader/parse-options // complex conflicts', t => {
 			$name: String,
 			$limit: Number,
 		},
-	}, {a: 'hello'}, TypeError);
+	}, { name: 'hello', limit: 1 }, TypeError);
 });
