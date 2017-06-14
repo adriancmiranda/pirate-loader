@@ -91,6 +91,7 @@ module.exports.call = (options) => {
 		try {
 			const warnings = [];
 			const context = deepExtend({
+				cacheable() {},
 				target: 'web',
 				minimize: true,
 				loaders: [],
