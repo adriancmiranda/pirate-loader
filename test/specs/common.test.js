@@ -4,6 +4,7 @@ import common from '../../lib/common';
 
 test('lib/common.typeOf', t => {
 	t.is(toString.call(common.typeOf), '[object Function]');
+	t.is(common.typeOf((() => arguments)()), 'Arguments');
 	t.is(common.typeOf('ab'), 'String');
 	t.is(common.typeOf(/^./g), 'RegExp');
 	t.is(common.typeOf(10000), 'Number');
@@ -32,6 +33,7 @@ test('lib/common.typeOf', t => {
 
 test('lib/common.writeNameFromType', t => {
 	t.is(toString.call(common.writeNameFromType), '[object Function]');
+	t.is(common.writeNameFromType((() => arguments)()), 'Arguments');
 	t.is(common.writeNameFromType(Symbol), 'Symbol');
 	t.is(common.writeNameFromType(String), 'String');
 	t.is(common.writeNameFromType(RegExp), 'RegExp');
@@ -61,6 +63,7 @@ test('lib/common.writeNameFromType', t => {
 
 test('lib/common.stringifyInstances', t => {
 	t.is(toString.call(common.stringifyInstances), '[object Function]');
+	t.is(common.stringifyInstances('Arguments', (() => arguments)()), 'Arguments');
 	t.is(common.stringifyInstances([Symbol, String, Function, Object, Boolean]), 'Symbol|String|Function|Object|Boolean');
 	t.is(common.stringifyInstances([Symbol, String, Function, Object, Boolean,]), 'Symbol|String|Function|Object|Boolean'); // should be 'Symbol|String|Function|Object|Boolean|Undefined'
 	t.is(common.stringifyInstances('Symbol|String|Function|Object|Boolean', true), 'Symbol|String|Function|Object|Boolean');
@@ -80,6 +83,7 @@ test('lib/common.stringifyInstances', t => {
 
 test('lib/common.getInstanceNameOf', t => {
 	t.is(toString.call(common.getInstanceNameOf), '[object Function]');
+	t.is(common.getInstanceNameOf((() => arguments)()), 'Arguments');
 	t.is(common.getInstanceNameOf(Symbol), 'Symbol');
 	t.is(common.getInstanceNameOf(Symbol.name), 'String');
 	t.is(common.getInstanceNameOf(String), 'String');
@@ -122,6 +126,7 @@ test('lib/common.getInstanceNameOf', t => {
 
 test('lib/common.getInstanceOf', t => {
 	t.is(toString.call(common.getInstanceOf), '[object Function]');
+	t.is(common.getInstanceOf((() => arguments)()), Object);
 	t.is(common.getInstanceOf(Symbol('foo')), Symbol);
 	t.is(common.getInstanceOf(new String()), String);
 	t.is(common.getInstanceOf(new RegExp('^foo')), RegExp);
@@ -149,6 +154,7 @@ test('lib/common.getInstanceOf', t => {
 
 test('lib/common.is', t => {
 	t.is(toString.call(common.is), '[object Function]');
+	t.is(common.is('Arguments', (() => arguments)()), true);
 	t.is(common.is('Function|Array|Number', Infinity), true);
 	t.is(common.is('Function|Array|Infinity', String), true);
 	t.is(common.is('Function|Array', String), true);
@@ -186,6 +192,7 @@ test('lib/common.is', t => {
 
 test('lib/common.is.not', t => {
 	t.is(toString.call(common.is.not), '[object Function]');
+	t.is(common.is.not('Arguments', (() => arguments)()), false);
 	t.is(common.is.not('Function|Array|Number', String), false);
 	t.is(common.is.not('Function|Array|Number', Infinity), false);
 	t.is(common.is.not('Function|Array', String), false);
