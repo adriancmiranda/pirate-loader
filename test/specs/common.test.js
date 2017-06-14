@@ -104,6 +104,7 @@ test('lib/common.getInstanceNameOf', t => {
 	t.is(common.getInstanceNameOf(Date.name), 'String');
 	t.is(common.getInstanceNameOf(null), 'Null');
 	t.is(common.getInstanceNameOf(undefined), 'Undefined');
+	t.is(common.getInstanceNameOf(Infinity), 'Number');
 	t.is(common.getInstanceNameOf(NaN), 'Number');
 	t.is(common.getInstanceNameOf(NaN.name), 'Undefined');
 	t.is(common.getInstanceNameOf('ab|ba'), 'String');
@@ -136,6 +137,7 @@ test('lib/common.getInstanceOf', t => {
 	t.is(common.getInstanceOf(new Date()), Date);
 	t.is(common.getInstanceOf(null), null);
 	t.is(common.getInstanceOf(undefined), undefined);
+	t.is(common.getInstanceOf(Infinity), Number);
 	t.is(common.getInstanceOf(NaN), Number);
 	t.is(common.getInstanceOf(10000), Number);
 	t.is(common.getInstanceOf('ab|ba'), String);
@@ -147,10 +149,15 @@ test('lib/common.getInstanceOf', t => {
 
 test('lib/common.is', t => {
 	t.is(toString.call(common.is), '[object Function]');
+	t.is(common.is('Function|Array|Number', Infinity), true);
+	t.is(common.is('Function|Array|Infinity', String), true);
 	t.is(common.is('Function|Array', String), true);
 	t.is(common.is('Function|Array', []), true);
 	t.is(common.is('Function|Array', () => []), true);
 	t.is(common.is('String|Function', 'pirate'), true);
+	t.is(common.is([String, Function, Object, Infinity], Infinity), true);
+	t.is(common.is([String, Function, Object, Infinity], Number), true);
+	t.is(common.is([String, Function, Object, Infinity], 0), true);
 	t.is(common.is([String, Function, Object, Boolean], 'pirate'), true);
 	t.is(common.is([String.name, Function.name], 'pirate'), true);
 	t.is(common.is('String|Function', () => 'pirate'), true);
@@ -179,11 +186,16 @@ test('lib/common.is', t => {
 
 test('lib/common.is.not', t => {
 	t.is(toString.call(common.is.not), '[object Function]');
+	t.is(common.is.not('Function|Array|Number', String), false);
+	t.is(common.is.not('Function|Array|Number', Infinity), false);
 	t.is(common.is.not('Function|Array', String), false);
 	t.is(common.is.not('Function|Array', []), false);
 	t.is(common.is.not('Function|Array', () => []), false);
 	t.is(common.is.not('String|Function', 'pirate'), false);
 	t.is(common.is.not([String, Function, Object, Boolean], 'pirate'), false);
+	t.is(common.is.not([String, Function, Object, Infinity], Infinity), false);
+	t.is(common.is.not([String, Function, Object, Infinity], Number), false);
+	t.is(common.is.not([String, Function, Object, Infinity], 0), false);
 	t.is(common.is.not([String.name, Function.name], 'pirate'), false);
 	t.is(common.is.not('String|Function', () => 'pirate'), false);
 	t.is(common.is.not([String, Function], () => 'pirate'), false);
@@ -203,6 +215,9 @@ test('lib/common.is.not', t => {
 	t.is(common.is.not(null, null), false);
 	t.is(common.is.not('null', null, true), false);
 	t.is(common.is.not('Null', null), false);
+	t.is(common.is.not(Infinity, Infinity), false);
+	t.is(common.is.not(Infinity, Number), true);
+	t.is(common.is.not(Number, Infinity), false);
 	t.is(common.is.not(NaN, NaN), false);
 	t.is(common.is.not(Number, NaN), false);
 	t.is(common.is.not(Number.name, NaN), false);
