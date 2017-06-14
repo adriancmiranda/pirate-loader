@@ -42,15 +42,6 @@ function throwUnexpectedType(t, schema, value, err) {
 
 test('lib/loader/parse-options exists', t => {
 	t.is(toString.call(parseOptions), '[object Function]');
-	console.log('\n\ntest: \n\n', sprop({
-		type: [Function, String, Object],
-		required: true,
-		default: {
-			$name: String,
-			$limit: Number,
-			$ext: String,
-		},
-	}, {name: 'hello', limit: 1, ext: 'pirate'}), '\n\n---\n\n');
 });
 
 test('lib/loader/parse-options // simple', t => {
@@ -77,6 +68,25 @@ test('lib/loader/parse-options // complex', t => {
 		required: true,
 		default: 'My default text',
 	}, 'hello'), 'hello');
+
+	t.deepEqual(sprop({
+		type: [Function, String, Object],
+		required: true,
+		default: {
+			$name: {
+				type: String,
+				default: 'hey',
+			},
+			$limit: {
+				type: Number,
+				default: 2,
+			},
+			$ext: {
+				type: String,
+				default: 'pirate'
+			},
+		},
+	}, {}), { name: 'hey', limit: 2, ext: 'pirate' });
 });
 
 test('lib/loader/parse-options // complex conflicts', t => {

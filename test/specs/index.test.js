@@ -10,5 +10,5 @@ test('pirate-loader', t => {
 		entry: './fixtures/hello.pirate',
 	}).then((response) => {
 		console.log('response:', response.output);
-	}).catch(console.error.bind(console, '[pirate-loader] SpecError:'));
+	}).catch(console.error.bind(console, '[pirate-loader]:'));
 });
