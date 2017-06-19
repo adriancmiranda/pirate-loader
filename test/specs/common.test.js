@@ -1,5 +1,5 @@
 import test from 'ava-spec';
-import Fixture from '../fixtures/common.fixture';
+import ObjectFixture from '../fixtures/object.fixture';
 import common from '../../lib/common';
 
 test('lib/common.typeOf', t => {
@@ -25,8 +25,8 @@ test('lib/common.typeOf', t => {
 	t.is(common.typeOf(Boolean), 'Function');
 	t.is(common.typeOf(Buffer), 'Function');
 	t.is(common.typeOf(Date), 'Function');
-	t.is(common.typeOf(Fixture), 'Function');
-	t.is(common.typeOf(new Fixture()), 'CommonFixture');
+	t.is(common.typeOf(ObjectFixture), 'Function');
+	t.is(common.typeOf(new ObjectFixture()), 'ObjectFixture');
 	t.is(common.typeOf(new Buffer('ab')), 'Uint8Array');
 	t.is(common.typeOf(new Date()), 'Date');
 });
@@ -50,8 +50,8 @@ test('lib/common.writeNameFromType', t => {
 	t.is(common.writeNameFromType(NaN), 'Number');
 	t.is(common.writeNameFromType('ab|ba', true), 'ab|ba');
 	t.is(common.writeNameFromType('ab|ba'), 'String');
-	t.is(common.writeNameFromType(new Fixture('FixtureTest')), 'FixtureTest');
-	t.is(common.writeNameFromType(Fixture), 'FixtureTest');
+	t.is(common.writeNameFromType(new ObjectFixture('FixtureTest')), 'FixtureTest');
+	t.is(common.writeNameFromType(ObjectFixture), 'FixtureTest');
 	t.is(common.writeNameFromType([1, 2]), 'Array');
 	t.is(common.writeNameFromType(/^./g), 'RegExp');
 	t.is(common.writeNameFromType(10000), 'Number');
@@ -112,9 +112,9 @@ test('lib/common.getInstanceNameOf', t => {
 	t.is(common.getInstanceNameOf(NaN), 'Number');
 	t.is(common.getInstanceNameOf(NaN.name), 'Undefined');
 	t.is(common.getInstanceNameOf('ab|ba'), 'String');
-	t.is(common.getInstanceNameOf(new Fixture()), 'CommonFixture');
-	t.is(common.getInstanceNameOf(Fixture), 'CommonFixture');
-	t.is(common.getInstanceNameOf(Fixture.name), 'String');
+	t.is(common.getInstanceNameOf(new ObjectFixture()), 'ObjectFixture');
+	t.is(common.getInstanceNameOf(ObjectFixture), 'ObjectFixture');
+	t.is(common.getInstanceNameOf(ObjectFixture.name), 'String');
 	t.is(common.getInstanceNameOf([1, 2]), 'Array');
 	t.is(common.getInstanceNameOf(/^./g), 'RegExp');
 	t.is(common.getInstanceNameOf(10000), 'Number');
@@ -146,8 +146,8 @@ test('lib/common.getInstanceOf', t => {
 	t.is(common.getInstanceOf(NaN), Number);
 	t.is(common.getInstanceOf(10000), Number);
 	t.is(common.getInstanceOf('ab|ba'), String);
-	t.is(common.getInstanceOf(new Fixture('FF')), Fixture);
-	t.is(common.getInstanceOf(Fixture), Function);
+	t.is(common.getInstanceOf(new ObjectFixture('FF')), ObjectFixture);
+	t.is(common.getInstanceOf(ObjectFixture), Function);
 	t.is(common.getInstanceOf(false), Boolean);
 	t.is(common.getInstanceOf(new Uint8Array()), Uint8Array);
 });
@@ -175,9 +175,9 @@ test('lib/common.is', t => {
 	t.is(common.is('String', () => 'pirate'), false);
 	t.is(common.is(String, () => 'pirate'), false);
 	t.is(common.is(String.name, () => 'pirate'), false);
-	t.is(common.is(Fixture, new Fixture('pirate')), true);
-	t.is(common.is(Fixture.name, new Fixture('pirate')), true);
-	t.is(common.is('Pirate', new Fixture('Pirate')), true);
+	t.is(common.is(ObjectFixture, new ObjectFixture('pirate')), true);
+	t.is(common.is(ObjectFixture.name, new ObjectFixture('pirate')), true);
+	t.is(common.is('Pirate', new ObjectFixture('Pirate')), true);
 	t.is(common.is(undefined, undefined), true);
 	t.is(common.is('undefined', undefined, true), true);
 	t.is(common.is('Undefined', undefined), true);
@@ -213,9 +213,9 @@ test('lib/common.is.not', t => {
 	t.is(common.is.not('String', () => 'pirate'), true);
 	t.is(common.is.not(String, () => 'pirate'), true);
 	t.is(common.is.not(String.name, () => 'pirate'), true);
-	t.is(common.is.not(Fixture, new Fixture('pirate')), false);
-	t.is(common.is.not(Fixture.name, new Fixture('pirate')), false);
-	t.is(common.is.not('CommonFixture', new Fixture()), false);
+	t.is(common.is.not(ObjectFixture, new ObjectFixture('pirate')), false);
+	t.is(common.is.not(ObjectFixture.name, new ObjectFixture('pirate')), false);
+	t.is(common.is.not('ObjectFixture', new ObjectFixture()), false);
 	t.is(common.is.not(undefined, undefined), false);
 	t.is(common.is.not('undefined', undefined, true), false);
 	t.is(common.is.not('Undefined', undefined), false);

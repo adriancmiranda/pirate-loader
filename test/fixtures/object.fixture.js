@@ -2,10 +2,10 @@ const is = (expected, value) =>
 	Object.prototype.toString.call(value).slice(8, -1) === expected
 ;
 
-const originalName = CommonFixture.name;
+const originalName = ObjectFixture.name;
 
-function CommonFixture(name) {
-	Object.defineProperty(CommonFixture, 'name', {
+function ObjectFixture(name) {
+	Object.defineProperty(ObjectFixture, 'name', {
 		value: is('String', name) ? name : originalName,
 		writable: true,
 		enumerable: true,
@@ -13,4 +13,4 @@ function CommonFixture(name) {
 	});
 }
 
-module.exports = CommonFixture;
+module.exports = ObjectFixture;
