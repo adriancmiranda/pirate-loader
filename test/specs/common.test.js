@@ -5,17 +5,29 @@ import common from '../../lib/common';
 test('lib/common.typeOf', t => {
 	t.is(toString.call(common.typeOf), '[object Function]');
 	t.is(common.typeOf((() => arguments)()), 'Arguments');
+	t.is(common.typeOf(arguments), 'Arguments');
 	t.is(common.typeOf('ab'), 'String');
+	t.is(common.typeOf(new String('foo')), 'String');
 	t.is(common.typeOf(/^./g), 'RegExp');
+	t.is(common.typeOf(new RegExp('foo')), 'RegExp');
 	t.is(common.typeOf(10000), 'Number');
+	t.is(common.typeOf(new Number(42)), 'Number');
 	t.is(common.typeOf({name: 1}), 'Object');
+	t.is(common.typeOf({}), 'Object');
+	t.is(common.typeOf(Object.create(null)), 'LightObject');
+	t.is(common.typeOf(new ObjectFixture()), 'ObjectFixture');
+	t.is(common.typeOf([]), 'Array');
 	t.is(common.typeOf([1, 2]), 'Array');
+	t.is(common.typeOf(new Array()), 'Array');
+	t.is(common.typeOf(true), 'Boolean');
 	t.is(common.typeOf(false), 'Boolean');
+	t.is(common.typeOf(new Boolean(true)), 'Boolean');
 	t.is(common.typeOf(null), 'Null');
 	t.is(common.typeOf(undefined), 'Undefined');
+	t.is(common.typeOf(Symbol), 'Function');
+	t.is(common.typeOf(Symbol('bar')), 'Symbol');
 	t.is(common.typeOf(String), 'Function');
 	t.is(common.typeOf(Boolean), 'Function');
-	t.is(common.typeOf(Symbol), 'Function');
 	t.is(common.typeOf(Number), 'Function');
 	t.is(common.typeOf(RegExp), 'Function');
 	t.is(common.typeOf(TypeError), 'Function');
@@ -23,12 +35,31 @@ test('lib/common.typeOf', t => {
 	t.is(common.typeOf(Object), 'Function');
 	t.is(common.typeOf(Array), 'Function');
 	t.is(common.typeOf(Boolean), 'Function');
-	t.is(common.typeOf(Buffer), 'Function');
 	t.is(common.typeOf(Date), 'Function');
 	t.is(common.typeOf(ObjectFixture), 'Function');
-	t.is(common.typeOf(new ObjectFixture()), 'ObjectFixture');
-	t.is(common.typeOf(new Buffer('ab')), 'Uint8Array');
+	t.is(common.typeOf(function () {}), 'Function');
+	t.is(common.typeOf(new Function()), 'Function');
+	t.is(common.typeOf(function * () {}), 'GeneratorFunction');
+	t.is(common.typeOf(new Map()), 'Map');
+	t.is(common.typeOf(new WeakMap()), 'WeakMap');
+	t.is(common.typeOf(new Set()), 'Set');
+	t.is(common.typeOf(new WeakSet()), 'WeakSet');
+	t.is(common.typeOf(new Int8Array()), 'Int8Array');
+	t.is(common.typeOf(new Uint8Array()), 'Uint8Array');
+	t.is(common.typeOf(new Uint8ClampedArray()), 'Uint8ClampedArray');
+	t.is(common.typeOf(new Int16Array()), 'Int16Array');
+	t.is(common.typeOf(new Uint16Array()), 'Uint16Array');
+	t.is(common.typeOf(new Int32Array()), 'Int32Array');
+	t.is(common.typeOf(new Uint32Array()), 'Uint32Array');
+	t.is(common.typeOf(new Float32Array()), 'Float32Array');
+	t.is(common.typeOf(new Float64Array()), 'Float64Array');
 	t.is(common.typeOf(new Date()), 'Date');
+	t.is(common.typeOf(ArrayBuffer), 'Function');
+	t.is(common.typeOf(new ArrayBuffer(4)), 'ArrayBuffer');
+	t.is(common.typeOf(Buffer), 'Function');
+	t.is(common.typeOf(new Buffer(3)), 'Uint8Array');
+	// t.is(common.typeOf(new Buffer('')), 'Buffer');
+
 });
 
 test('lib/common.writeNameFromType', t => {
@@ -43,7 +74,6 @@ test('lib/common.writeNameFromType', t => {
 	t.is(common.writeNameFromType(Object), 'Object');
 	t.is(common.writeNameFromType(Array), 'Array');
 	t.is(common.writeNameFromType(Boolean), 'Boolean');
-	t.is(common.writeNameFromType(Buffer), 'Buffer');
 	t.is(common.writeNameFromType(Date), 'Date');
 	t.is(common.writeNameFromType(null), 'Null');
 	t.is(common.writeNameFromType(undefined), 'Undefined');
@@ -58,7 +88,11 @@ test('lib/common.writeNameFromType', t => {
 	t.is(common.writeNameFromType({name: 1}), 'Object');
 	t.is(common.writeNameFromType(false), 'Boolean');
 	t.is(common.writeNameFromType(new Date()), 'Date');
+	t.is(common.writeNameFromType(ArrayBuffer), 'ArrayBuffer');
+	t.is(common.writeNameFromType(new ArrayBuffer(4)), 'ArrayBuffer');
+	t.is(common.writeNameFromType(Buffer), 'Buffer');
 	t.is(common.writeNameFromType(new Buffer('ab')), 'Uint8Array');
+	// t.is(common.writeNameFromType(new Buffer('ab')), 'Buffer');
 });
 
 test('lib/common.typify', t => {
@@ -77,8 +111,11 @@ test('lib/common.typify', t => {
 	t.is(common.typify(false), 'Boolean');
 	t.is(common.typify(new Date()), 'Date');
 	t.is(common.typify(Date), 'Date');
-	t.is(common.typify(new Buffer('ab')), 'Uint8Array');
+	t.is(common.typify(ArrayBuffer), 'ArrayBuffer');
+	t.is(common.typify(new ArrayBuffer(4)), 'ArrayBuffer');
 	t.is(common.typify(Buffer), 'Buffer');
+	t.is(common.typify(new Buffer('ab')), 'Uint8Array');
+	// t.is(common.typify(new Buffer('ab')), 'Buffer');
 });
 
 test('lib/common.getInstanceNameOf', t => {
@@ -102,8 +139,6 @@ test('lib/common.getInstanceNameOf', t => {
 	t.is(common.getInstanceNameOf(Array.name), 'String');
 	t.is(common.getInstanceNameOf(Boolean), 'Boolean');
 	t.is(common.getInstanceNameOf(Boolean.name), 'String');
-	t.is(common.getInstanceNameOf(Buffer), 'Buffer');
-	t.is(common.getInstanceNameOf(Buffer.name), 'String');
 	t.is(common.getInstanceNameOf(Date), 'Date');
 	t.is(common.getInstanceNameOf(Date.name), 'String');
 	t.is(common.getInstanceNameOf(null), 'Null');
@@ -121,7 +156,11 @@ test('lib/common.getInstanceNameOf', t => {
 	t.is(common.getInstanceNameOf({name: 1}), 'Object');
 	t.is(common.getInstanceNameOf(false), 'Boolean');
 	t.is(common.getInstanceNameOf(new Date()), 'Date');
+	t.is(common.getInstanceNameOf(ArrayBuffer), 'ArrayBuffer');
+	t.is(common.getInstanceNameOf(Buffer), 'Buffer');
+	t.is(common.getInstanceNameOf(Buffer.name), 'String');
 	t.is(common.getInstanceNameOf(new Buffer('ab')), 'Uint8Array');
+	// t.is(common.getInstanceNameOf(new Buffer('ab')), 'Buffer');
 });
 
 test('lib/common.getInstanceOf', t => {
@@ -138,7 +177,6 @@ test('lib/common.getInstanceOf', t => {
 	t.is(common.getInstanceOf(new Array()), Array);
 	t.is(common.getInstanceOf([1, 2]), Array);
 	t.is(common.getInstanceOf(new Boolean()), Boolean);
-	t.is(common.getInstanceOf(new Buffer('1234')), Buffer);
 	t.is(common.getInstanceOf(new Date()), Date);
 	t.is(common.getInstanceOf(null), null);
 	t.is(common.getInstanceOf(undefined), undefined);
@@ -150,6 +188,9 @@ test('lib/common.getInstanceOf', t => {
 	t.is(common.getInstanceOf(ObjectFixture), Function);
 	t.is(common.getInstanceOf(false), Boolean);
 	t.is(common.getInstanceOf(new Uint8Array()), Uint8Array);
+	// t.is(common.getInstanceOf(ArrayBuffer), ArrayBuffer);
+	// t.is(common.getInstanceOf(Buffer), Buffer);
+	t.is(common.getInstanceOf(new Buffer('1234')), Buffer);
 });
 
 test('lib/common.is', t => {
