@@ -61,24 +61,24 @@ test('lib/common.writeNameFromType', t => {
 	t.is(common.writeNameFromType(new Buffer('ab')), 'Uint8Array');
 });
 
-test('lib/common.stringifyInstances', t => {
-	t.is(toString.call(common.stringifyInstances), '[object Function]');
-	t.is(common.stringifyInstances('Arguments', (() => arguments)()), 'Arguments');
-	t.is(common.stringifyInstances([Symbol, String, Function, Object, Boolean]), 'Symbol|String|Function|Object|Boolean');
-	t.is(common.stringifyInstances([Symbol, String, Function, Object, Boolean,]), 'Symbol|String|Function|Object|Boolean'); // should be 'Symbol|String|Function|Object|Boolean|Undefined'
-	t.is(common.stringifyInstances('Symbol|String|Function|Object|Boolean', true), 'Symbol|String|Function|Object|Boolean');
-	t.is(common.stringifyInstances([1, 'Custom', {}]), 'Number|Custom|Object'); // <- should it be an array?
-	t.is(common.stringifyInstances([]), 'Array');
-	t.is(common.stringifyInstances(1), 'Number');
-	t.is(common.stringifyInstances('Custom', true), 'Custom');
-	t.is(common.stringifyInstances({}), 'Object');
-	t.is(common.stringifyInstances({name: 1}), 'Object');
-	t.is(common.stringifyInstances(/^./g), 'RegExp');
-	t.is(common.stringifyInstances(false), 'Boolean');
-	t.is(common.stringifyInstances(new Date()), 'Date');
-	t.is(common.stringifyInstances(Date), 'Date');
-	t.is(common.stringifyInstances(new Buffer('ab')), 'Uint8Array');
-	t.is(common.stringifyInstances(Buffer), 'Buffer');
+test('lib/common.typify', t => {
+	t.is(toString.call(common.typify), '[object Function]');
+	t.is(common.typify('Arguments', (() => arguments)()), 'Arguments');
+	t.is(common.typify([Symbol, String, Function, Object, Boolean]), 'Symbol|String|Function|Object|Boolean');
+	t.is(common.typify([Symbol, String, Function, Object, Boolean,]), 'Symbol|String|Function|Object|Boolean'); // should be 'Symbol|String|Function|Object|Boolean|Undefined'
+	t.is(common.typify('Symbol|String|Function|Object|Boolean', true), 'Symbol|String|Function|Object|Boolean');
+	t.is(common.typify([1, 'Custom', {}]), 'Number|Custom|Object'); // <- should it be an array?
+	t.is(common.typify([]), 'Array');
+	t.is(common.typify(1), 'Number');
+	t.is(common.typify('Custom', true), 'Custom');
+	t.is(common.typify({}), 'Object');
+	t.is(common.typify({name: 1}), 'Object');
+	t.is(common.typify(/^./g), 'RegExp');
+	t.is(common.typify(false), 'Boolean');
+	t.is(common.typify(new Date()), 'Date');
+	t.is(common.typify(Date), 'Date');
+	t.is(common.typify(new Buffer('ab')), 'Uint8Array');
+	t.is(common.typify(Buffer), 'Buffer');
 });
 
 test('lib/common.getInstanceNameOf', t => {
