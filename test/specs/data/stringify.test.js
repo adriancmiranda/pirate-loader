@@ -1,7 +1,7 @@
 import test from 'ava-spec';
-import stringify from '../../../lib/loader/stringify';
+import stringify from '../../../lib/data/stringify';
 
-test('lib/loader/stringify', t => {
+test('lib/data/stringify', t => {
 	t.is(toString.call(stringify), '[object Function]');
 	t.deepEqual(stringify([{
 			loader: 'a-loader',
