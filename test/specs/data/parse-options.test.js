@@ -1,5 +1,5 @@
 import test from 'ava-spec';
-import parseOptions from '../../../lib/data/parse-options';
+import parseOptions from '../../../lib/data/parse';
 
 function sprop(schema, value) {
 	return parseOptions({ $foo: schema }, { foo: value }).foo;
@@ -40,11 +40,11 @@ function throwUnexpectedType(t, schema, value, err) {
 	throws('[UNEXPECTED_TYPE]:', t, schema, value, err);
 }
 
-test('lib/data/parse-options exists', t => {
+test('lib/data/parse exists', t => {
 	t.is(toString.call(parseOptions), '[object Function]');
 });
 
-test('lib/data/parse-options // simple', t => {
+test('lib/data/parse // simple', t => {
 	t.is(sprop([Function, String, undefined], undefined), undefined);
 	t.is(sprop([Function, String], 'hello'), 'hello');
 	t.is(sprop(String, 'hello'), 'hello');
@@ -52,7 +52,7 @@ test('lib/data/parse-options // simple', t => {
 	t.is(sprop(null, null), null);
 });
 
-test('lib/data/parse-options // simple conflicts', t => {
+test('lib/data/parse // simple conflicts', t => {
 	throwUnexpectedType(t, undefined, null, TypeError);
 	throwUnexpectedType(t, null, undefined, TypeError);
 	throwUnexpectedType(t, String, undefined, TypeError);
@@ -62,7 +62,7 @@ test('lib/data/parse-options // simple conflicts', t => {
 	throwUnexpectedType(t, String, undefined, TypeError);
 });
 
-test('lib/data/parse-options // complex', t => {
+test('lib/data/parse // complex', t => {
 	t.is(sprop({
 		type: [Function, String],
 		required: true,
@@ -89,7 +89,7 @@ test('lib/data/parse-options // complex', t => {
 	}, {}), { name: 'hey', limit: 2, ext: 'pirate' });
 });
 
-test('lib/data/parse-options // complex conflicts', t => {
+test('lib/data/parse // complex conflicts', t => {
 	throwConflictType(t, {
 		type: [Function, String],
 		required: true,
