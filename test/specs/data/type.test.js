@@ -215,6 +215,17 @@ test('lib/data/type.is.buffer', t => {
 	t.is(toString.call(type.is.buffer), '[object Function]');
 	t.is(type.is.buffer(new Uint8Array(1)), false);
 	t.is(type.is.buffer(new Buffer(1)), true);
+	t.is(type.is.buffer(undefined), false);
+	t.is(type.is.buffer(null), false);
+	t.is(type.is.buffer(false), false);
+	t.is(type.is.buffer(true), false);
+	t.is(type.is.buffer(function Buffer(){}), false);
+	t.is(type.is.buffer(() => 'foo'), false);
+	t.is(type.is.buffer('foo'), false);
+	t.is(type.is.buffer({}), false);
+	t.is(type.is.buffer(''), false);
+	t.is(type.is.buffer(0), false);
+	t.is(type.is.buffer(1), false);
 });
 
 test('lib/data/type.is.not.buffer', t => {
