@@ -119,6 +119,8 @@ test('lib/data/type.typify', t => {
 test('lib/data/type.constructorNameOf', t => {
 	t.is(toString.call(type.constructorNameOf), '[object Function]');
 	t.is(type.constructorNameOf((() => arguments)()), 'Arguments');
+	t.is(type.constructorNameOf(() => 'foo'), 'Function');
+	t.is(type.constructorNameOf(function(){return 'foo';}), 'Function');
 	t.is(type.constructorNameOf(Symbol), 'Symbol');
 	t.is(type.constructorNameOf(Symbol.name), 'String');
 	t.is(type.constructorNameOf(String), 'String');
@@ -163,6 +165,8 @@ test('lib/data/type.constructorNameOf', t => {
 test('lib/data/type.constructorOf', t => {
 	t.is(toString.call(type.constructorOf), '[object Function]');
 	t.is(type.constructorOf((() => arguments)()), Object);
+	t.is(type.constructorOf(() => 'foo'), Function);
+	t.is(type.constructorOf(function(){}), Function);
 	t.is(type.constructorOf(Symbol('foo')), Symbol);
 	t.is(type.constructorOf(new String()), String);
 	t.is(type.constructorOf(new RegExp('^foo')), RegExp);
@@ -191,6 +195,32 @@ test('lib/data/type.constructorOf', t => {
 	t.is(type.constructorOf(ArrayBuffer), Function);
 	t.is(type.constructorOf(Buffer), Function);
 	t.is(type.constructorOf(new Buffer('1234')), Buffer);
+});
+
+test('lib/data/type.as', t => {
+	const getFoo = function(){return 'foo';};
+	t.is(toString.call(type.as), '[object Function]');
+	t.is(type.as([Number, Function], getFoo), getFoo);
+	t.is(type.as(Number, getFoo), undefined);
+	t.is(type.as(String, getFoo), 'foo');
+	t.is(type.as(Number, () => 'foo'), undefined);
+	t.is(type.as(String, () => 'foo'), 'foo');
+	t.is(type.as(String, () => ''), '');
+	t.is(type.as(Number, 'foo'), undefined);
+	t.is(type.as(String, 'foo'), 'foo');
+	t.is(type.as(String, ''), '');
+});
+
+test('lib/data/type.is.buffer', t => {
+	t.is(toString.call(type.is.buffer), '[object Function]');
+	t.is(type.is.buffer(new Uint8Array(1)), false);
+	t.is(type.is.buffer(new Buffer(1)), true);
+});
+
+test('lib/data/type.is.not.buffer', t => {
+	t.is(toString.call(type.is.not.buffer), '[object Function]');
+	t.is(type.is.not.buffer(new Uint8Array(1)), true);
+	t.is(type.is.not.buffer(new Buffer(1)), false);
 });
 
 test('lib/data/type.is', t => {
