@@ -57,7 +57,7 @@ test('lib/data/typeOf', t => {
 	t.is(type.typeOf(ArrayBuffer), 'Function');
 	t.is(type.typeOf(new ArrayBuffer(4)), 'ArrayBuffer');
 	t.is(type.typeOf(Buffer), 'Function');
-	// t.is(type.typeOf(new Buffer(3)), 'Buffer'); // should be a Buffer or a Uint8Array?
+	t.is(type.typeOf(new Buffer(3)), 'Buffer');
 
 });
 
@@ -91,7 +91,7 @@ test('lib/data/type.writeNameFromType', t => {
 	t.is(type.writeNameFromType(new ArrayBuffer(4)), 'ArrayBuffer');
 	t.is(type.writeNameFromType(new Int32Array(new ArrayBuffer(8))), 'Int32Array');
 	t.is(type.writeNameFromType(Buffer), 'Buffer');
-	// t.is(type.writeNameFromType(new Buffer('ab')), 'Buffer'); // should be a Buffer or a Uint8Array?
+	t.is(type.writeNameFromType(new Buffer('ab')), 'Buffer');
 });
 
 test('lib/data/type.typify', t => {
@@ -113,7 +113,7 @@ test('lib/data/type.typify', t => {
 	t.is(type.typify(ArrayBuffer), 'ArrayBuffer');
 	t.is(type.typify(new ArrayBuffer(4)), 'ArrayBuffer');
 	t.is(type.typify(Buffer), 'Buffer');
-	// t.is(type.typify(new Buffer('ab')), 'Buffer'); // should be a Buffer or a Uint8Array?
+	t.is(type.typify(new Buffer('ab')), 'Buffer');
 });
 
 test('lib/data/type.constructorNameOf', t => {
@@ -157,7 +157,7 @@ test('lib/data/type.constructorNameOf', t => {
 	t.is(type.constructorNameOf(ArrayBuffer), 'ArrayBuffer');
 	t.is(type.constructorNameOf(Buffer), 'Buffer');
 	t.is(type.constructorNameOf(Buffer.name), 'String');
-	// t.is(type.constructorNameOf(new Buffer('ab')), 'Buffer'); // should be a Buffer or a Uint8Array?
+	t.is(type.constructorNameOf(new Buffer('ab')), 'Buffer');
 });
 
 test('lib/data/type.constructorOf', t => {
@@ -229,6 +229,7 @@ test('lib/data/type.is', t => {
 	t.is(type.is(Number, NaN), true);
 	t.is(type.is(Number.name, NaN), true);
 	t.is(type.is('Number', NaN), true);
+	t.is(type.is(Buffer, new Uint8Array(1)), false);
 });
 
 test('lib/data/type.is.not', t => {
@@ -270,4 +271,5 @@ test('lib/data/type.is.not', t => {
 	t.is(type.is.not(Number, NaN), false);
 	t.is(type.is.not(Number.name, NaN), false);
 	t.is(type.is.not('Number', NaN), false);
+	t.is(type.is.not(Uint8Array, new Buffer(0)), true);
 });
