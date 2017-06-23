@@ -101,6 +101,7 @@ test('lib/data/type.typify', t => {
 	t.is(type.typify([Symbol, String, Function, Object, Boolean,]), 'Symbol|String|Function|Object|Boolean'); // should be 'Symbol|String|Function|Object|Boolean|Undefined'?
 	t.is(type.typify('Symbol|String|Function|Object|Boolean', true), 'Symbol|String|Function|Object|Boolean');
 	t.is(type.typify([1, 'Custom', {}]), 'Number|Custom|Object'); // <- should it be an array?
+	t.is(type.typify([1, []]), 'Number|Array');
 	t.is(type.typify([]), 'Array');
 	t.is(type.typify(1), 'Number');
 	t.is(type.typify('Custom', true), 'Custom');
