@@ -230,6 +230,7 @@ test('lib/data/type.is.buffer', t => {
 
 test('lib/data/type.is.not.buffer', t => {
 	t.is(toString.call(type.is.not.buffer), '[object Function]');
+	t.is(type.is.not.buffer(new (function Buffer(){})()), true);
 	t.is(type.is.not.buffer(new Uint8Array(1)), true);
 	t.is(type.is.not.buffer(new Buffer(1)), false);
 });
