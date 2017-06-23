@@ -1,4 +1,4 @@
-import test from 'ava-spec';
+import test from 'ava';
 import stringify from '../../../lib/data/stringify';
 
 test('lib/data/stringify', t => {

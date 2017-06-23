@@ -1,4 +1,4 @@
-import test from 'ava-spec';
+import test from 'ava';
 import ensureModuleExtension from '../../../lib/data/ensure-module-extension';
 
 test('lib/data/ensure-module-extension', t => {

@@ -1,4 +1,4 @@
-import test from 'ava-spec';
+import test from 'ava';
 import ensureBang from '../../../lib/data/ensure-bang';
 
 test('lib/data/ensure-bang', t => {

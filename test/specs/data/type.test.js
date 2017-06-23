@@ -1,4 +1,4 @@
-import test from 'ava-spec';
+import test from 'ava';
 import ObjectFixture from '../../fixtures/object.fixture';
 import type from '../../../lib/data/type';
 
@@ -89,6 +89,7 @@ test('lib/data/type.writeNameFromType', t => {
 	t.is(type.writeNameFromType(new Date()), 'Date');
 	t.is(type.writeNameFromType(ArrayBuffer), 'ArrayBuffer');
 	t.is(type.writeNameFromType(new ArrayBuffer(4)), 'ArrayBuffer');
+	t.is(type.writeNameFromType(new Int32Array(new ArrayBuffer(8))), 'Int32Array');
 	t.is(type.writeNameFromType(Buffer), 'Buffer');
 	// t.is(type.writeNameFromType(new Buffer('ab')), 'Buffer'); // should be a Buffer or a Uint8Array?
 });
@@ -185,8 +186,10 @@ test('lib/data/type.constructorOf', t => {
 	t.is(type.constructorOf(ObjectFixture), Function);
 	t.is(type.constructorOf(false), Boolean);
 	t.is(type.constructorOf(new Uint8Array()), Uint8Array);
-	// t.is(type.constructorOf(ArrayBuffer), ArrayBuffer);
-	// t.is(type.constructorOf(Buffer), Buffer);
+	t.is(type.constructorOf(new Int32Array(new ArrayBuffer(8))), Int32Array);
+	t.is(type.constructorOf(new ArrayBuffer(3)), ArrayBuffer);
+	t.is(type.constructorOf(ArrayBuffer), Function);
+	t.is(type.constructorOf(Buffer), Function);
 	t.is(type.constructorOf(new Buffer('1234')), Buffer);
 });
 

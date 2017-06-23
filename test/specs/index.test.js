@@ -1,4 +1,4 @@
-import test from 'ava-spec';
+import test from 'ava';
 import webpack from '../webpack';
 
 test('pirate-loader', t => {

@@ -1,4 +1,4 @@
-import test from 'ava-spec';
+import test from 'ava';
 import parseOptions from '../../../lib/data/parse';
 
 function sprop(schema, value) {
