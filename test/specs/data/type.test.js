@@ -102,11 +102,12 @@ test('lib/data/type.typify', t => {
 	t.is(type.typify([Symbol, String, Function, Object, Boolean, Promise]), 'Symbol|String|Function|Object|Boolean|Promise');
 	t.is(type.typify([Symbol, String, Function, Object, Boolean,]), 'Symbol|String|Function|Object|Boolean'); // should be 'Symbol|String|Function|Object|Boolean|Undefined'?
 	t.is(type.typify('Symbol|String|Function|Object|Boolean', true), 'Symbol|String|Function|Object|Boolean');
-	t.is(type.typify([1, 'Custom', {}]), 'Number|Custom|Object');
 	t.is(type.typify([1, []]), 'Number|Array');
+	t.is(type.typify([1, 'Custom', {}]), 'Number|String|Object');
+	t.is(type.typify([1, 'Custom', {}], true), 'Number|Custom|Object');
+	t.is(type.typify('Custom', true), 'Custom');
 	t.is(type.typify([]), 'Array');
 	t.is(type.typify(1), 'Number');
-	t.is(type.typify('Custom', true), 'Custom');
 	t.is(type.typify({}), 'Object');
 	t.is(type.typify({name: 1}), 'Object');
 	t.is(type.typify(/^./g), 'RegExp');
