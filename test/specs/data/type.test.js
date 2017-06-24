@@ -280,6 +280,11 @@ test('lib/data/type.is', t => {
 	t.is(type.is(Number.name, NaN), true);
 	t.is(type.is('Number', NaN), true);
 	t.is(type.is(Buffer, new Uint8Array(1)), false);
+	// should I?
+	// t.is(type.is(Infinity, Infinity), true);
+	// t.is(type.is(NaN, NaN), true);
+	// t.is(type.is(Infinity, 2), false);
+	// t.is(type.is(NaN, 0), false);
 });
 
 test('lib/data/type.is.not', t => {
