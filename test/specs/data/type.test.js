@@ -58,40 +58,40 @@ test('lib/data/typeOf', t => {
 	t.is(type.typeOf(new ArrayBuffer(4)), 'ArrayBuffer');
 	t.is(type.typeOf(Buffer), 'Function');
 	t.is(type.typeOf(new Buffer(3)), 'Buffer');
-
 });
 
-test('lib/data/type.writeNameFromType', t => {
-	t.is(toString.call(type.writeNameFromType), '[object Function]');
-	t.is(type.writeNameFromType((() => arguments)()), 'Arguments');
-	t.is(type.writeNameFromType(Symbol), 'Symbol');
-	t.is(type.writeNameFromType(String), 'String');
-	t.is(type.writeNameFromType(RegExp), 'RegExp');
-	t.is(type.writeNameFromType(Number), 'Number');
-	t.is(type.writeNameFromType(TypeError), 'TypeError');
-	t.is(type.writeNameFromType(Error), 'Error');
-	t.is(type.writeNameFromType(Object), 'Object');
-	t.is(type.writeNameFromType(Array), 'Array');
-	t.is(type.writeNameFromType(Boolean), 'Boolean');
-	t.is(type.writeNameFromType(Date), 'Date');
-	t.is(type.writeNameFromType(null), 'Null');
-	t.is(type.writeNameFromType(undefined), 'Undefined');
-	t.is(type.writeNameFromType(NaN), 'Number');
-	t.is(type.writeNameFromType('ab|ba', true), 'ab|ba');
-	t.is(type.writeNameFromType('ab|ba'), 'String');
-	t.is(type.writeNameFromType(new ObjectFixture('FixtureTest')), 'FixtureTest');
-	t.is(type.writeNameFromType(ObjectFixture), 'FixtureTest');
-	t.is(type.writeNameFromType([1, 2]), 'Array');
-	t.is(type.writeNameFromType(/^./g), 'RegExp');
-	t.is(type.writeNameFromType(10000), 'Number');
-	t.is(type.writeNameFromType({name: 1}), 'Object');
-	t.is(type.writeNameFromType(false), 'Boolean');
-	t.is(type.writeNameFromType(new Date()), 'Date');
-	t.is(type.writeNameFromType(ArrayBuffer), 'ArrayBuffer');
-	t.is(type.writeNameFromType(new ArrayBuffer(4)), 'ArrayBuffer');
-	t.is(type.writeNameFromType(new Int32Array(new ArrayBuffer(8))), 'Int32Array');
-	t.is(type.writeNameFromType(Buffer), 'Buffer');
-	t.is(type.writeNameFromType(new Buffer('ab')), 'Buffer');
+test('lib/data/type.name', t => {
+	t.is(toString.call(type.name), '[object Function]');
+	t.is(type.name((() => arguments)()), 'Arguments');
+	t.is(type.name(Symbol), 'Symbol');
+	t.is(type.name(String), 'String');
+	t.is(type.name(RegExp), 'RegExp');
+	t.is(type.name(Number), 'Number');
+	t.is(type.name(TypeError), 'TypeError');
+	t.is(type.name(Error), 'Error');
+	t.is(type.name(Object), 'Object');
+	t.is(type.name(Array), 'Array');
+	t.is(type.name(Boolean), 'Boolean');
+	t.is(type.name(Date), 'Date');
+	t.is(type.name(null), 'Null');
+	t.is(type.name(undefined), 'Undefined');
+	t.is(type.name(NaN), 'Number');
+	t.is(type.name('|a-b|b>a|', true), '_a_b|b_a_');
+	t.is(type.name('ab|ba', true), 'ab|ba');
+	t.is(type.name('ab|ba'), 'String');
+	t.is(type.name(new ObjectFixture('FixtureTest')), 'FixtureTest');
+	t.is(type.name(ObjectFixture), 'FixtureTest');
+	t.is(type.name([1, 2]), 'Array');
+	t.is(type.name(/^./g), 'RegExp');
+	t.is(type.name(10000), 'Number');
+	t.is(type.name({name: 1}), 'Object');
+	t.is(type.name(false), 'Boolean');
+	t.is(type.name(new Date()), 'Date');
+	t.is(type.name(ArrayBuffer), 'ArrayBuffer');
+	t.is(type.name(new ArrayBuffer(4)), 'ArrayBuffer');
+	t.is(type.name(new Int32Array(new ArrayBuffer(8))), 'Int32Array');
+	t.is(type.name(Buffer), 'Buffer');
+	t.is(type.name(new Buffer('ab')), 'Buffer');
 });
 
 test('lib/data/type.typify', t => {
