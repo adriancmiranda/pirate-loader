@@ -58,11 +58,13 @@ test('lib/data/type.of', t => {
 	t.is(type.of(new ArrayBuffer(4)), 'ArrayBuffer');
 	t.is(type.of(Buffer), 'Function');
 	t.is(type.of(new Buffer(3)), 'Buffer');
+	t.is(type.of(new Promise(function (resolve, reject) {resolve();})), 'Promise');
 });
 
 test('lib/data/type.name', t => {
 	t.is(toString.call(type.name), '[object Function]');
 	t.is(type.name((() => arguments)()), 'Arguments');
+	t.is(type.name(Promise), 'Promise');
 	t.is(type.name(Symbol), 'Symbol');
 	t.is(type.name(String), 'String');
 	t.is(type.name(RegExp), 'RegExp');
@@ -97,7 +99,7 @@ test('lib/data/type.name', t => {
 test('lib/data/type.typify', t => {
 	t.is(toString.call(type.typify), '[object Function]');
 	t.is(type.typify('Arguments', (() => arguments)()), 'Arguments');
-	t.is(type.typify([Symbol, String, Function, Object, Boolean]), 'Symbol|String|Function|Object|Boolean');
+	t.is(type.typify([Symbol, String, Function, Object, Boolean, Promise]), 'Symbol|String|Function|Object|Boolean|Promise');
 	t.is(type.typify([Symbol, String, Function, Object, Boolean,]), 'Symbol|String|Function|Object|Boolean'); // should be 'Symbol|String|Function|Object|Boolean|Undefined'?
 	t.is(type.typify('Symbol|String|Function|Object|Boolean', true), 'Symbol|String|Function|Object|Boolean');
 	t.is(type.typify([1, 'Custom', {}]), 'Number|Custom|Object');
@@ -115,6 +117,7 @@ test('lib/data/type.typify', t => {
 	t.is(type.typify(new ArrayBuffer(4)), 'ArrayBuffer');
 	t.is(type.typify(Buffer), 'Buffer');
 	t.is(type.typify(new Buffer('ab')), 'Buffer');
+	t.is(type.typify(new Promise(function (resolve, reject) {resolve();})), 'Promise');
 });
 
 test('lib/data/type.constructorNameOf', t => {
@@ -122,6 +125,7 @@ test('lib/data/type.constructorNameOf', t => {
 	t.is(type.constructorNameOf((() => arguments)()), 'Arguments');
 	t.is(type.constructorNameOf(() => 'foo'), 'Function');
 	t.is(type.constructorNameOf(function(){return 'foo';}), 'Function');
+	t.is(type.constructorNameOf(Promise), 'Promise');
 	t.is(type.constructorNameOf(Symbol), 'Symbol');
 	t.is(type.constructorNameOf(Symbol.name), 'String');
 	t.is(type.constructorNameOf(String), 'String');
@@ -161,6 +165,7 @@ test('lib/data/type.constructorNameOf', t => {
 	t.is(type.constructorNameOf(Buffer), 'Buffer');
 	t.is(type.constructorNameOf(Buffer.name), 'String');
 	t.is(type.constructorNameOf(new Buffer('ab')), 'Buffer');
+	t.is(type.constructorNameOf(new Promise(function (resolve, reject) {resolve();})), 'Promise');
 });
 
 test('lib/data/type.constructorOf', t => {
@@ -196,6 +201,7 @@ test('lib/data/type.constructorOf', t => {
 	t.is(type.constructorOf(ArrayBuffer), Function);
 	t.is(type.constructorOf(Buffer), Function);
 	t.is(type.constructorOf(new Buffer('1234')), Buffer);
+	t.is(type.constructorOf(new Promise(function (resolve, reject) {resolve();})), Promise);
 });
 
 test('lib/data/type.as', t => {
