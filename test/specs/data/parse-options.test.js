@@ -1,43 +1,44 @@
 import test from 'ava';
 import parseOptions from '../../../lib/data/parse';
+import PLError from '../../../lib/data/error';
 
 function sprop(schema, value) {
 	return parseOptions({ $foo: schema }, { foo: value }).foo;
 }
 
-function throws(msgPrefix, t, schema, value, errorClass) {
+function throws(msgPrefix, t, schema, value) {
 	const err = t.throws(() => {
 		sprop(schema, value);
-	}, errorClass);
-	t.is(err.message.indexOf(msgPrefix), 0);
+	}, PLError);
+	t.is(err.name, `${msgPrefix}Error`);
 }
 
 function throwUnknownSchema(t, schema, value, err) {
-	throws('[UNKN0WN_SCHEM4]:', t, schema, value, err);
+	throws('UnknownSchema', t, schema, value, err);
 }
 
 function throwInvalidSchema(t, schema, value, err) {
-	throws('[INVALID_SCHEM4]:', t, schema, value, err);
+	throws('InvalidSchema', t, schema, value, err);
 }
 
 function throwRequiredProperty(t, schema, value, err) {
-	throws('[REQUIRED_PR0PERTY]:', t, schema, value, err);
+	throws('RequiredProperty', t, schema, value, err);
 }
 
 function throwUnknownType(t, schema, value, err) {
-	throws('[UNKN0WN_TYPE]:', t, schema, value, err);
+	throws('UnknownType', t, schema, value, err);
 }
 
 function throwInvalidType(t, schema, value, err) {
-	throws('[INVALID_TYPE]:', t, schema, value, err);
+	throws('InvalidType', t, schema, value, err);
 }
 
 function throwConflictType(t, schema, value, err) {
-	throws('[CONFL1CT_TYPE]:', t, schema, value, err);
+	throws('ConflictType', t, schema, value, err);
 }
 
 function throwUnexpectedType(t, schema, value, err) {
-	throws('[UNEXPECTED_TYPE]:', t, schema, value, err);
+	throws('UnexpectedType', t, schema, value, err);
 }
 
 test('lib/data/parse exists', t => {
@@ -53,13 +54,13 @@ test('lib/data/parse // simple', t => {
 });
 
 test('lib/data/parse // simple conflicts', t => {
-	throwUnexpectedType(t, undefined, null, TypeError);
-	throwUnexpectedType(t, null, undefined, TypeError);
-	throwUnexpectedType(t, String, undefined, TypeError);
-	throwUnexpectedType(t, String, null, TypeError);
-	throwUnexpectedType(t, [Function, String], undefined, TypeError);
-	throwUnexpectedType(t, Function, 'hello', TypeError);
-	throwUnexpectedType(t, String, undefined, TypeError);
+	throwUnexpectedType(t, undefined, null);
+	throwUnexpectedType(t, null, undefined);
+	throwUnexpectedType(t, String, undefined);
+	throwUnexpectedType(t, String, null);
+	throwUnexpectedType(t, [Function, String], undefined);
+	throwUnexpectedType(t, Function, 'hello');
+	throwUnexpectedType(t, String, undefined);
 });
 
 test('lib/data/parse // complex', t => {
@@ -97,5 +98,5 @@ test('lib/data/parse // complex conflicts', t => {
 			$name: String,
 			$limit: Number,
 		},
-	}, { name: 'hello', limit: 1 }, TypeError);
+	}, { name: 'hello', limit: 1 });
 });
