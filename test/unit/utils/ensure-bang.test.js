@@ -1,7 +1,7 @@
 import test from 'ava';
-import ensureBang from '../../../lib/data/ensure-bang';
+import ensureBang from '../../../lib/utils/ensure-bang';
 
-test('lib/data/ensure-bang', t => {
+test('lib/utils/ensure-bang', t => {
 	t.is(toString.call(ensureBang), '[object Function]');
 	t.is(ensureBang('sass?indentedSyntax=true!css!'), 'sass?indentedSyntax=true!css!');
 	t.is(ensureBang('sass?indentedSyntax!css'), 'sass?indentedSyntax!css!');

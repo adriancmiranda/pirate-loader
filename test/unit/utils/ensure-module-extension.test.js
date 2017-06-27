@@ -1,7 +1,7 @@
 import test from 'ava';
-import ensureModuleExtension from '../../../lib/data/ensure-module-extension';
+import ensureModuleExtension from '../../../lib/utils/ensure-module-extension';
 
-test('lib/data/ensure-module-extension', t => {
+test('lib/utils/ensure-module-extension', t => {
 	t.is(toString.call(ensureModuleExtension), '[object Function]');
 	t.is(ensureModuleExtension('sass?indentedSyntax=true!css!'), 'sass-loader?indentedSyntax=true!css-loader!');
 	t.is(ensureModuleExtension('sass?indentedSyntax!css'), 'sass-loader?indentedSyntax!css-loader');

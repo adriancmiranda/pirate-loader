@@ -1,25 +1,26 @@
 import test from 'ava';
-import stringify from '../../../lib/data/stringify';
+import stringify from '../../../lib/utils/stringify';
 
-test('lib/data/stringify', t => {
+test('lib/utils/stringify', t => {
 	t.is(toString.call(stringify), '[object Function]');
-	t.deepEqual(stringify([{
+	t.deepEqual(stringify([
+		{
 			loader: 'a-loader',
 			options: {
 				paramA: 'A',
-				paramB: 'B'
+				paramB: 'B',
 			},
 		}, {
 			loader: 'b-loader',
 		}, {
 			loader: 'c-loader',
 			options: {
-				paramC: 'C'
+				paramC: 'C',
 			},
 		}, {
 			loader: 'd-loader',
 			options: {
-				paramD: 'D'
+				paramD: 'D',
 			},
 		},
 	]), 'a-loader?{"paramA":"A","paramB":"B"}!b-loader!c-loader?{"paramC":"C"}!d-loader?{"paramD":"D"}');
