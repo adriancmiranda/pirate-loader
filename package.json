@@ -14,18 +14,6 @@
   "bugs": {
     "url": "https://github.com/adriancmiranda/pirate-loader/issues"
   },
-  "xo": {
-    "overrides": [
-      {
-        "files": "index.js",
-        "esnext": true
-      },
-      {
-        "files": "lib/**/*.js",
-        "esnext": true
-      }
-    ]
-  },
   "config": {
     "validate-commit-msg": {
       "types": "conventional-commit-types"
