@@ -1,6 +1,3 @@
-# ci: appveyor file
-# http://www.appveyor.com/docs/appveyor-yml
-
 branches:
   only:
     - master

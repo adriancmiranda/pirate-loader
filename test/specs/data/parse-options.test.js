@@ -84,7 +84,7 @@ test('lib/data/parse // complex', t => {
 			},
 			$ext: {
 				type: String,
-				default: 'pirate'
+				default: 'pirate',
 			},
 		},
 	}, {}), { name: 'hey', limit: 2, ext: 'pirate' });

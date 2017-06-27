@@ -1,5 +1,3 @@
-# ci: travis file
-# https://nodejs.org/en/docs/es6/
 sudo: false
 
 language: node_js
