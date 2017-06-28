@@ -6,57 +6,56 @@
 [![depsci][depsci]][depsci-url]
 [![travis][travis]][travis-url]
 [![appveyor][appveyor]][appveyor-url]
+[![codecov][codecov]][codecov-url]
 
 
-## 🏴 Installation
+## 🏴 installation
 
 ```diff
 - ☠ This loader is under construction. There's nothing for you here yet. ☠ -
 ```
 
 
-## 🏴 Options
+## 🏴 options
 
 ```javascript
 {
-  loader: 'pirate-loader?extensionName=component',
-  test: /\.component$/,
-  options: {
-    style: {
-      required: true,
-      defaultLanguage: 'scss',
-      tagName: 'styles',
+  context: process.cwd(),
+	hashKey: '',
+  config: 'pirate',
+	extensionName: 'pirate',
+	excludedPreLoaders: /eslint-loader/,
+	style: {
+    required: false,
+    defaultLanguage: 'css',
+    tagName: 'style',
+    loaders: {},
     },
-    script: {
-      required: false,
-      defaultLanguage: 'javascript',
-      tagName: 'script',
-      acceptMethodName: 'init',
-      declineMethodName: 'decline',
-      disposeMethodName: 'dispose',
-    },
-    view: {
-      required: true,
-      defaultLanguage: 'html',
-      tagName: 'template',
-    },
-  },
+	},
+	script: {
+    required: false,
+    defaultLanguage: 'javascript',
+    tagName: 'script',
+    accept: 'accept',
+    apply: 'apply',
+    loaders: {},
+	},
+	view: {
+    defaultLanguage: 'html',
+    tagName: 'view',
+    loaders: {}
+	},
+	customTags: []
 }
 ```
 
 
-## 🏴 License
+## 🏴 license
 
 [MIT][license-url]
 
 
 <!-- links -->
-
-[npm]: https://badge.fury.io/js/pirate-loader.svg
-[npm-url]: https://npmjs.com/package/pirate-loader
-
-[xo]: https://img.shields.io/badge/code_style-XO-5ed9c7.svg
-[xo-url]: https://github.com/sindresorhus/xo
 
 [npm]: https://img.shields.io/npm/v/pirate-loader.svg
 [npm-url]: https://npmjs.com/package/pirate-loader
@@ -73,7 +72,7 @@
 [depsci]: https://dependencyci.com/github/adriancmiranda/pirate-loader/badge
 [depsci-url]: https://dependencyci.com/github/adriancmiranda/pirate-loader
 
-[stability]: http://badges.github.io/stability-badges/dist/experimental.svg
-[stability-url]: https://cdn.meme.am/cache/instances/folder481/500x/9689481.jpg
+[codecov]: https://codecov.io/gh/adriancmiranda/pirate-loader/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/adriancmiranda/pirate-loader
 
 [license-url]: https://github.com/adriancmiranda/pirate-loader/blob/master/LICENSE
