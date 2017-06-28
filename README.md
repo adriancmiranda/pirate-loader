@@ -21,31 +21,30 @@
 ```javascript
 {
   context: process.cwd(),
-	hashKey: '',
+  hashKey: '',
   config: 'pirate',
-	extensionName: 'pirate',
-	excludedPreLoaders: /eslint-loader/,
-	style: {
+  extensionName: 'pirate',
+  excludedPreLoaders: /eslint-loader/,
+  style: {
     required: false,
     defaultLanguage: 'css',
     tagName: 'style',
-    loaders: {},
-    },
-	},
-	script: {
+    loaders: {}
+  },
+  script: {
     required: false,
     defaultLanguage: 'javascript',
     tagName: 'script',
     accept: 'accept',
     apply: 'apply',
-    loaders: {},
-	},
-	view: {
+    loaders: {}
+  },
+  view: {
     defaultLanguage: 'html',
     tagName: 'view',
     loaders: {}
-	},
-	customTags: []
+  },
+  customTags: []
 }
 ```
 
