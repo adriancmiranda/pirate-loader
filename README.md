@@ -16,6 +16,13 @@
 ```
 
 
+## 🏴 query
+
+```javascript
+?config='pirate'
+```
+
+
 ## 🏴 options
 
 ```javascript
@@ -58,6 +65,7 @@
   customTags: {},
 }
 ```
+> Note: All this options can be used as query too.
 
 
 ## 🏴 license
