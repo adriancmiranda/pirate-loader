@@ -65,7 +65,7 @@
   customTags: {},
 }
 ```
-> Note: All this options can be used as query too.
+> **Note**: All this options above can be used as query too.
 
 
 ## 🏴 license
