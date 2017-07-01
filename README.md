@@ -22,29 +22,40 @@
 {
   context: process.cwd(),
   hashKey: '',
-  config: 'pirate',
   extensionName: 'pirate',
+  $preLoaders: {},
+  $postLoaders: {},
+  buble: {},
   excludedPreLoaders: /eslint-loader/,
   style: {
     required: false,
+    extract: false,
+    sourceMap: false,
     defaultLanguage: 'css',
     tagName: 'style',
-    loaders: {}
+    modules: {},
+    loaders: {},
   },
   script: {
     required: false,
+    esnext: false,
+    buble: undefined,
     defaultLanguage: 'javascript',
     tagName: 'script',
     accept: 'accept',
     apply: 'apply',
-    loaders: {}
+    loaders: {},
   },
   view: {
+    transformToRequire: false,
+    preserveWhitespace: false,
+    compilerModules: undefined,
+    buble: undefined,
     defaultLanguage: 'html',
     tagName: 'view',
-    loaders: {}
+    loaders: {},
   },
-  customTags: []
+  customTags: {},
 }
 ```
 
