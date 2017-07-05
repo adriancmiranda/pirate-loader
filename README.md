@@ -30,9 +30,9 @@
   context: process.cwd(),
   hashKey: '',
   extensionName: 'pirate',
+  buble: {},
   $preLoaders: {},
   $postLoaders: {},
-  buble: {},
   excludedPreLoaders: /eslint-loader/,
   style: {
     required: false,
