@@ -6,5 +6,5 @@ test('lib/utils/interpolate', t => {
 	t.is(interpolate('Error #{code}: {message}', {
 		code: 500,
 		message: 'Internal Error',
-	}), 'Error #500: Internal Error');
+	}), 'Error #500: "Internal Error"');
 });

@@ -45,14 +45,6 @@ test('lib/data/parse exists', t => {
 	t.is(toString.call(parseOptions), '[object Function]');
 });
 
-test('lib/data/parse // simple', t => {
-	t.is(sprop([Function, String, undefined], undefined), undefined);
-	t.is(sprop([Function, String], 'hello'), 'hello');
-	t.is(sprop(String, 'hello'), 'hello');
-	t.is(sprop(undefined, undefined), undefined);
-	t.is(sprop(null, null), null);
-});
-
 test('lib/data/parse // simple conflicts', t => {
 	throwUnexpectedType(t, undefined, null);
 	throwUnexpectedType(t, null, undefined);
@@ -61,6 +53,25 @@ test('lib/data/parse // simple conflicts', t => {
 	throwUnexpectedType(t, [Function, String], undefined);
 	throwUnexpectedType(t, Function, 'hello');
 	throwUnexpectedType(t, String, undefined);
+});
+
+test('lib/data/parse // complex conflicts', t => {
+	throwConflictType(t, {
+		type: [Function, String],
+		required: true,
+		default: {
+			$name: String,
+			$limit: Number,
+		},
+	}, { name: 'hello', limit: 1 });
+});
+
+test('lib/data/parse // simple', t => {
+	t.is(sprop([Function, String, undefined], undefined), undefined);
+	t.is(sprop([Function, String], 'hello'), 'hello');
+	t.is(sprop(String, 'hello'), 'hello');
+	t.is(sprop(undefined, undefined), undefined);
+	t.is(sprop(null, null), null);
 });
 
 test('lib/data/parse // complex', t => {
@@ -88,15 +99,4 @@ test('lib/data/parse // complex', t => {
 			},
 		},
 	}, {}), { name: 'hey', limit: 2, ext: 'pirate' });
-});
-
-test('lib/data/parse // complex conflicts', t => {
-	throwConflictType(t, {
-		type: [Function, String],
-		required: true,
-		default: {
-			$name: String,
-			$limit: Number,
-		},
-	}, { name: 'hello', limit: 1 });
 });
